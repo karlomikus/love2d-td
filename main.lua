@@ -1,49 +1,48 @@
+Object = require "libs/classic"
+Circle = require("obj/Circle")
+HyperCircle = require("obj/HyperCircle")
+
 function love.load()
+    -- local object_files = {}
+    -- recursiveEnumerate('obj', object_files)
+    -- print(object_files)
+    -- requireFiles(object_files)
 
-    local vertices = {
-        {20, 20},
-        {300, 40},
-        {300, 100},
-        {20, 100}
-    }
-    mesh = love.graphics.newMesh(vertices, "fan")
-
-    love.physics.setMeter(32)
-    world = love.physics.newWorld(0, 9.81*32, true)
-
-    objects = {}
-    objects.ground = require "ground"
-    objects.tank = require "tank"
+    -- local exerciseCircle = Test()
+    -- exerciseCircle = Circle(400, 300, 50)
+    exHyperCircle = HyperCircle(400, 300, 50, 10, 120)
 end
 
 function love.update(dt)
-    world:update(dt)
-
-    if love.keyboard.isDown("d") then
-        objects.tank.moveForward()
-    end
-
-    if love.keyboard.isDown("a") then
-        objects.tank.moveBackward()
-    end
-
-    if love.keyboard.isDown("space") then
-        objects.tank.shoot()
-    end
 end
 
+
 function love.draw()
-    -- love.graphics.draw(mesh)
-
-    love.graphics.setColor(0.28, 0.63, 0.05)
-    love.graphics.polygon("fill", objects.ground.body:getWorldPoints(objects.ground.shape:getPoints())) -- draw a "filled in" polygon using the ground's coordinates
-
-    love.graphics.setColor(0.76, 0.18, 0.05)
-    love.graphics.polygon("fill", objects.tank.body:getWorldPoints(objects.tank.shape:getPoints()))
+    -- exerciseCircle:draw()
+    exHyperCircle:draw()
 end
 
 function love.keypressed(key)
     if key == "escape" then
         love.event.quit()
+    end
+end
+
+function recursiveEnumerate(folder, file_list)
+    local items = love.filesystem.getDirectoryItems(folder)
+    for _, item in ipairs(items) do
+        local file = folder .. "/" .. item
+        if love.filesystem.isFile(file) then
+            table.insert(file_list, file)
+        elseif love.filesystem.isDirectory(file) then
+            recursiveEnumerate(file, file_list)
+        end
+    end
+end
+
+function requireFiles(files)
+    for _, file in ipairs(files) do
+        local file = file.sub(1, -5)
+        require(file)
     end
 end
