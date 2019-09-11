@@ -1,28 +1,36 @@
+require "utils"
+
 Object = require "libs/classic"
 Input = require "libs/Input"
 Timer = require "libs/Timer"
-Circle = require("obj/Circle")
-HyperCircle = require("obj/HyperCircle")
+Camera = require "libs/Camera"
+
+require "obj/Stage"
+require "obj/Area"
+require "obj/GameObject"
+require "obj/Player"
+require "obj/Barrel"
 
 function love.load()
     timer = Timer()
     input = Input()
     input:bind('mouse1', 'm1')
 
-    exHyperCircle = HyperCircle(400, 300, 50, 10, 120)
-    circle = {radius = 24}
-    timer:tween(6, circle, {radius = 96}, 'in-out-cubic')
+    camera = Camera()
+    stage = Stage()
 end
 
 function love.update(dt)
     timer:update(dt)
+    camera:update(dt)
     if input:pressed('m1') then print('pressed') end
+
+    if stage then stage:update(dt) end
 end
 
 
 function love.draw()
-    -- exHyperCircle:draw()
-    love.graphics.circle('fill', 400, 300, circle.radius)
+    if stage then stage:draw() end
 end
 
 function love.keypressed(key)
