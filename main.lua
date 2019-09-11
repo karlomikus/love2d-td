@@ -17,6 +17,7 @@ function love.load()
     input:bind('mouse1', 'm1')
     input:bind('w', 'angle_up')
     input:bind('s', 'angle_down')
+    input:bind('lshift', 'shift')
 
     camera = Camera()
     stage = Stage()

@@ -12,6 +12,8 @@ function Player:update(dt)
 end
 
 function Player:draw()
-    love.graphics.circle("line", self.x, self.y, 25)
+    love.graphics.setColor(0, 1, 0)
+    love.graphics.rectangle("line", self.x - 20, self.y, 40, 10)
+    love.graphics.setColor(1, 1, 1)
     self.barrel:draw()
 end
