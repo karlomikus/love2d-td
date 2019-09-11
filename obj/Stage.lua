@@ -2,8 +2,10 @@ Stage = Object:extend()
 
 function Stage:new()
     self.area = Area(self)
-    self.score = 0
+    self.area:addPhysicsWorld()
+
     self.player = self.area:addGameObject('Player', 250, 250)
+    self.ground = self.area:addGameObject('Ground', 0, 500)
 end
 
 function Stage:update(dt)

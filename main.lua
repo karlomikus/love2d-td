@@ -10,6 +10,7 @@ require "obj/Area"
 require "obj/GameObject"
 require "obj/Player"
 require "obj/Barrel"
+require "obj/Ground"
 
 function love.load()
     timer = Timer()
@@ -17,6 +18,8 @@ function love.load()
     input:bind('mouse1', 'm1')
     input:bind('w', 'angle_up')
     input:bind('s', 'angle_down')
+    input:bind('d', 'tank_forward')
+    input:bind('a', 'tank_backward')
     input:bind('lshift', 'shift')
 
     camera = Camera()
