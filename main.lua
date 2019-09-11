@@ -15,6 +15,8 @@ function love.load()
     timer = Timer()
     input = Input()
     input:bind('mouse1', 'm1')
+    input:bind('w', 'angle_up')
+    input:bind('s', 'angle_down')
 
     camera = Camera()
     stage = Stage()

@@ -8,6 +8,7 @@ end
 
 function Player:update(dt)
     Player.super.update(self, dt)
+    self.barrel:update(dt)
 end
 
 function Player:draw()
