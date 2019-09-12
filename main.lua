@@ -11,6 +11,7 @@ require "obj/GameObject"
 require "obj/Player"
 require "obj/Ground"
 require "obj/Projectile"
+require "obj/Enemy"
 
 function love.load()
     timer = Timer()
