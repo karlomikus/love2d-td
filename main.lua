@@ -9,8 +9,8 @@ require "obj/Stage"
 require "obj/Area"
 require "obj/GameObject"
 require "obj/Player"
-require "obj/Barrel"
 require "obj/Ground"
+require "obj/Projectile"
 
 function love.load()
     timer = Timer()
@@ -21,6 +21,7 @@ function love.load()
     input:bind('d', 'tank_forward')
     input:bind('a', 'tank_backward')
     input:bind('lshift', 'shift')
+    input:bind('space', 'shoot')
 
     camera = Camera()
     stage = Stage()

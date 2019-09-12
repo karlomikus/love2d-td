@@ -33,6 +33,6 @@ function Area:addGameObject(game_object_type, x, y, opts)
 end
 
 function Area:addPhysicsWorld()
-    love.physics.setMeter(10)
-    self.world = love.physics.newWorld(0, 7*10, true)
+    love.physics.setMeter(32)
+    self.world = love.physics.newWorld(0, 9.81 * 32, true)
 end
