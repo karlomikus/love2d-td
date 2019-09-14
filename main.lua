@@ -52,24 +52,24 @@ function love.load()
 end
 
 function love.update(dt)
+    local oldX, oldY = player.x, player.y
     timer:update(dt)
     camera:update(dt)
 
-    -- camera:follow(player.x, player.y)
-    -- camera:setFollowLerp(0.2)
+    if collided(player.x, player.y + player.h, player.w, 1) then
+        player.y = oldY
+    else
+        player.y = player.y + 100 * dt
+    end
 
     if input:down('up') then
         player.y = player.y - player.speed * dt
     end
 
-    if input:down('down') then
-        player.y = player.y + player.speed * dt
-    end
-
     if input:down('tank_forward') then
         if not collided(player.x + player.w, player.y, 1, player.h - 3) then
             player.x = player.x + player.speed * dt
-            if collided(player.x, player.y + player.h, player.w, 1) then
+            if collided(player.x, player.y + player.h - 3, player.w, 1) then
                 print("fw: pushing up")
                 player.y = player.y - 1
             end
@@ -79,14 +79,12 @@ function love.update(dt)
     if input:down('tank_backward') then
         if not collided(player.x - 1, player.y, 1, player.h - 3) then
             player.x = player.x - player.speed * dt
-            if collided(player.x, player.y + player.h, player.w, 1) then
+            if collided(player.x, player.y + player.h - 3, player.w, 1) then
                 print("bw: pushing up")
                 player.y = player.y - 1
             end
         end
     end
-
-    map = love.graphics.newImage(map_image_data)
 
     if input:pressed('m1') then
         for i = 1, bomb_w, 1 do
@@ -97,6 +95,8 @@ function love.update(dt)
         end
         map = love.graphics.newImage(map_image_data)
     end
+
+    map = love.graphics.newImage(map_image_data)
 
     -- if stage then stage:update(dt) end
 end
