@@ -3,6 +3,13 @@ Player = GameObject:extend()
 function Player:new(area, x, y, opts)
     Player.super.new(self, area, x, y, opts)
 
+    local ex_img = love.graphics.newImage("res/explosion.png")
+    self.p_system = love.graphics.newParticleSystem(ex_img, 32)
+    self.p_system:setParticleLifetime(0.5, 0.5)
+    self.p_system:setLinearAcceleration(-100, -100, 100, 100)
+    self.p_system:setColors(255, 255, 0, 255, 255, 153, 51, 255, 64, 64, 64, 0)
+    self.p_system:setSizes(0.5, 0.5)
+
     self.w = 30
     self.h = 10
     self.pixel_damping = 3
@@ -21,6 +28,8 @@ end
 function Player:update(dt)
     Player.super.update(self, dt)
     local oldX, oldY = self.x, self.y
+
+    self.p_system:update(dt)
 
     -- Gravity
     if self.area:collided(self.x, self.y + self.h, self.w, 1) then
@@ -70,12 +79,15 @@ function Player:update(dt)
 
     if input:pressed('shoot') then
         local d = 1.2 * self.barrel_length
+        self.p_system:emit(32)
 
         self.area:addGameObject('Projectile', self.barrel_x + d * math.cos(math.rad(self.p_angle)), self.barrel_y + d * math.sin(math.rad(self.p_angle)), {rot = self.p_angle})
     end
 end
 
 function Player:draw()
+    love.graphics.draw(self.p_system, self.barrel_x + 1.2 * self.barrel_length * math.cos(math.rad(self.p_angle)), self.barrel_y + 1.2 * self.barrel_length * math.sin(math.rad(self.p_angle)))
+
     love.graphics.setColor(0.4, 0.7, 0.1)
     love.graphics.rectangle("fill", self.x, self.y, self.w, self.h)
     love.graphics.setColor(1, 1, 1)

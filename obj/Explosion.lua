@@ -23,5 +23,4 @@ function Explosion:update(dt)
 end
 
 function Explosion:draw()
-
 end

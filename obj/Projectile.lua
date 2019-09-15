@@ -3,7 +3,7 @@ Projectile = GameObject:extend()
 function Projectile:new(area, x, y, opts)
     Projectile.super.new(self, area, x, y, opts)
 
-    self.velocity = 800
+    self.velocity = 500
     self.rot = math.rad(opts.rot)
 
     self.body = love.physics.newBody(area.world, self.x, self.y, "dynamic")
