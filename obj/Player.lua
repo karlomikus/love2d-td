@@ -5,6 +5,7 @@ function Player:new(area, x, y, opts)
 
     self.w = 30
     self.h = 10
+    self.pixel_damping = 3
 
     self.speed = 150
 
@@ -43,18 +44,18 @@ function Player:update(dt)
     end
 
     if input:down('fwd') then
-        if not self.area:collided(self.x + self.w, self.y, 1, self.h - 3) then
+        if not self.area:collided(self.x + self.w, self.y, 1, self.h - self.pixel_damping) then
             self.x = self.x + self.speed * dt
-            if self.area:collided(self.x, self.y + self.h - 3, self.w, 1) then
+            if self.area:collided(self.x, self.y + self.h - self.pixel_damping, self.w, 1) then
                 self.y = self.y - 1
             end
         end
     end
 
     if input:down('bwd') then
-        if not self.area:collided(self.x - 1, self.y, 1, self.h - 3) then
+        if not self.area:collided(self.x - 1, self.y, 1, self.h - self.pixel_damping) then
             self.x = self.x - self.speed * dt
-            if self.area:collided(self.x, self.y + self.h - 3, self.w, 1) then
+            if self.area:collided(self.x, self.y + self.h - self.pixel_damping, self.w, 1) then
                 self.y = self.y - 1
             end
         end

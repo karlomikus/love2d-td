@@ -52,7 +52,7 @@ function Area:addPhysicsWorld()
 end
 
 function Area:collided(hx, hy, hw, hh)
-    if hx > self.map_image_data:getWidth() or hx < 0 or hy > self.map_image_data:getHeight() or hy < 0 then
+    if hx + hw > self.map_image_data:getWidth() or hx < 0 or hy + hh > self.map_image_data:getHeight() or hy < 0 then
         return true
     end
 
