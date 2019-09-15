@@ -3,6 +3,16 @@ Area = Object:extend()
 function Area:new(room)
     self.room = room
     self.game_objects = {}
+
+    self.map_image_data = love.image.newImageData("res/map.bmp")
+    self.map_image_data:mapPixel(function (x, y, r, g, b, a)
+        if r == 0 and b == 0 and g == 1 then
+            a = 0
+        end
+
+        return r, g, b, a
+    end)
+    self.map = love.graphics.newImage(self.map_image_data)
 end
 
 function Area:update(dt)
@@ -20,6 +30,8 @@ function Area:update(dt)
 end
 
 function Area:draw()
+    love.graphics.draw(self.map)
+
     for _, game_object in ipairs(self.game_objects) do
         game_object:draw(dt)
     end
