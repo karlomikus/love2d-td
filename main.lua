@@ -13,7 +13,8 @@ require "obj/Projectile"
 require "obj/Explosion"
 
 function love.load()
-    love.graphics.setDefaultFilter('nearest', 'nearest')
+    -- love.graphics.setDefaultFilter('nearest', 'nearest')
+    background = love.graphics.newImage("res/bg.jpg")
 
     timer = Timer()
     input = Input()
@@ -38,6 +39,8 @@ function love.update(dt)
 end
 
 function love.draw()
+    love.graphics.setBackgroundColor(19/255, 0, 56/255)
+
     if stage then stage:draw() end
 end
 

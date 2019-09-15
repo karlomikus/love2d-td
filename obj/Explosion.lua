@@ -38,6 +38,7 @@ function Explosion:update(dt)
 end
 
 function Explosion:draw()
+    love.graphics.circle("fill", self.x, self.y, self.radius)
 end
 
 function Explosion:destroy()
