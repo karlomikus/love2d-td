@@ -27,6 +27,8 @@ function Area:update(dt)
             table.remove(self.game_objects, i)
         end
     end
+
+    self.map = love.graphics.newImage(self.map_image_data)
 end
 
 function Area:draw()
@@ -47,4 +49,19 @@ end
 function Area:addPhysicsWorld()
     love.physics.setMeter(32)
     self.world = love.physics.newWorld(0, 9.81 * 32, true)
+end
+
+function Area:collided(hx, hy, hw, hh)
+    if hx > self.map_image_data:getWidth() or hx < 0 or hy > self.map_image_data:getHeight() or hy < 0 then
+        return true
+    end
+
+    for cx = hx, hx + hw, 1 do
+        for cy = hy, hy + hh, 1 do
+            local r,g,b,a = self.map_image_data:getPixel(cx, cy)
+            if a ~= 0 then
+                return true
+            end
+        end
+    end
 end
