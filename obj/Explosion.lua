@@ -39,3 +39,7 @@ end
 
 function Explosion:draw()
 end
+
+function Explosion:destroy()
+    Explosion.super.destroy(self)
+end

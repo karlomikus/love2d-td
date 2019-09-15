@@ -9,9 +9,7 @@ require "obj/Stage"
 require "obj/Area"
 require "obj/GameObject"
 require "obj/Player"
-require "obj/Ground"
 require "obj/Projectile"
-require "obj/Enemy"
 require "obj/Explosion"
 
 function love.load()

@@ -29,3 +29,7 @@ function Projectile:draw()
     love.graphics.polygon("fill", self.body:getWorldPoints(self.shape:getPoints()))
     love.graphics.setColor(1, 1, 1)
 end
+
+function Projectile:destroy()
+    Projectile.super.destroy(self)
+end

@@ -24,3 +24,6 @@ end
 
 function GameObject:draw()
 end
+
+function GameObject:destroy()
+end
