@@ -7,7 +7,7 @@ function Projectile:new(area, x, y, opts)
     self.rot = math.rad(opts.rot)
 
     self.body = love.physics.newBody(area.world, self.x, self.y, "dynamic")
-    self.shape = love.physics.newRectangleShape(5, 5)
+    self.shape = love.physics.newCircleShape(2.3)
     self.fixture = love.physics.newFixture(self.body, self.shape)
     self.fixture:setDensity(0.08)
     self.fixture:setUserData("Projectile")
@@ -26,7 +26,7 @@ end
 
 function Projectile:draw()
     love.graphics.setColor(1, 0, 0)
-    love.graphics.polygon("fill", self.body:getWorldPoints(self.shape:getPoints()))
+    love.graphics.circle("fill", self.body:getX(), self.body:getY(), self.shape:getRadius())
     love.graphics.setColor(1, 1, 1)
 end
 

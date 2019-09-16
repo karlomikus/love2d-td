@@ -3,6 +3,8 @@ Player = GameObject:extend()
 function Player:new(area, x, y, opts)
     Player.super.new(self, area, x, y, opts)
 
+    self.gfx = love.graphics.newImage("res/tank.png")
+
     local ex_img = love.graphics.newImage("res/explosion.png")
     self.p_system = love.graphics.newParticleSystem(ex_img, 32)
     self.p_system:setParticleLifetime(0.5, 0.5)
@@ -14,13 +16,19 @@ function Player:new(area, x, y, opts)
     self.h = 10
     self.pixel_damping = 3
 
+    self.hitbox = {}
+    self.hitbox.w = 30
+    self.hitbox.h = 20
+    self.hitbox.x = 0
+    self.hitbox.y = 0
+
     self.speed = 150
     self.gravity = -1000
     self.vy = 0
 
     self.p_angle = 0
-    self.barrel_length = 20
-    self.barrel_caliber = 3
+    self.barrel_length = 15
+    self.barrel_caliber = 2
     self.barrel_x = self.x
     self.barrel_y = self.y
 end
@@ -74,8 +82,8 @@ function Player:update(dt)
         end
     end
 
-    self.barrel_x = self.x
-    self.barrel_y = self.y
+    self.barrel_x = self.x + self.w / 2
+    self.barrel_y = self.y - 5
 
     if input:pressed('shoot') then
         local d = 1.2 * self.barrel_length
@@ -89,7 +97,9 @@ function Player:draw()
     love.graphics.draw(self.p_system, self.barrel_x + 1.2 * self.barrel_length * math.cos(math.rad(self.p_angle)), self.barrel_y + 1.2 * self.barrel_length * math.sin(math.rad(self.p_angle)))
 
     love.graphics.setColor(0.4, 0.7, 0.1)
-    love.graphics.rectangle("fill", self.x, self.y, self.w, self.h)
+    love.graphics.draw(self.gfx, self.x, self.y - 20)
+    love.graphics.setColor(1, 0, 0)
+    -- love.graphics.rectangle("line", self.x, self.y, self.w, self.h)
     love.graphics.setColor(1, 1, 1)
 
     love.graphics.print("Barrel angle: " .. math.floor(self.p_angle), 10, 10)

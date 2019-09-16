@@ -3,7 +3,7 @@ Explosion = GameObject:extend()
 function Explosion:new(area, x, y, opts)
     Explosion.super.new(self, area, x, y, opts)
 
-    self.radius = opts.radius or 20
+    self.radius = opts.radius or 30
     self.scorched_earth = 4
 end
 

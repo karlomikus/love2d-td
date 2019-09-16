@@ -1,5 +1,6 @@
 require "utils"
 
+moonshine = require "libs/moonshine"
 Object = require "libs/classic"
 Input = require "libs/Input"
 Timer = require "libs/Timer"
@@ -14,7 +15,10 @@ require "obj/Explosion"
 
 function love.load()
     -- love.graphics.setDefaultFilter('nearest', 'nearest')
-    background = love.graphics.newImage("res/bg.jpg")
+    -- background = love.graphics.newImage("res/bg.jpg")
+
+    effect = moonshine(moonshine.effects.crt).chain(moonshine.effects.chromasep).chain(moonshine.effects.pixelate)
+    effect.disable("crt", "chromasep", "pixelate")
 
     timer = Timer()
     input = Input()
@@ -41,7 +45,9 @@ end
 function love.draw()
     love.graphics.setBackgroundColor(19/255, 0, 56/255)
 
-    if stage then stage:draw() end
+    effect(function()
+        if stage then stage:draw() end
+    end)
 end
 
 function love.keypressed(key)
