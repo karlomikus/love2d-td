@@ -89,7 +89,9 @@ function Player:update(dt)
         local d = 1.2 * self.barrel_length
         self.p_system:emit(32)
 
+        -- self.area:addGameObject('Projectile', self.barrel_x + d * math.cos(math.rad(self.p_angle - 15)), self.barrel_y + d * math.sin(math.rad(self.p_angle - 15)), {rot = self.p_angle - 15})
         self.area:addGameObject('Projectile', self.barrel_x + d * math.cos(math.rad(self.p_angle)), self.barrel_y + d * math.sin(math.rad(self.p_angle)), {rot = self.p_angle})
+        -- self.area:addGameObject('Projectile', self.barrel_x + d * math.cos(math.rad(self.p_angle + 15)), self.barrel_y + d * math.sin(math.rad(self.p_angle + 15)), {rot = self.p_angle + 15})
     end
 end
 

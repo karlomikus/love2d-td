@@ -59,7 +59,7 @@ function Area:collided(hx, hy, hw, hh)
 
     for cx = hx, hx + hw, 1 do
         for cy = hy, hy + hh, 1 do
-            local r,g,b,a = self.map_image_data:getPixel(cx, cy)
+            local r,g,b,a = self.map_image_data:getPixel(math.floor(cx), math.floor(cy))
             if a ~= 0 then
                 return true
             end
