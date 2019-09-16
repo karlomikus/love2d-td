@@ -25,6 +25,10 @@ function love.load()
     timer = Timer()
     input = Input()
 
+    love.audio.setVolume(0.1)
+    impact_sound = love.audio.newSource("res/sounds/impact.ogg", "static")
+    projectile_launch_sound = love.audio.newSource("res/sounds/projectile_launch.wav", "static")
+
     debug = true
 
     coll_debug = {}

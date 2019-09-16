@@ -86,6 +86,8 @@ function Player:update(dt)
     self.barrel_y = self.y - 5
 
     if input:pressed('shoot') then
+        projectile_launch_sound:stop()
+        projectile_launch_sound:play()
         local d = 1.2 * self.barrel_length
         self.p_system:emit(32)
 

@@ -20,6 +20,8 @@ function Projectile:update(dt)
 
     if self.area:collided(self.body:getX(), self.body:getY(), 5, 5) then
         self.area:addGameObject('Explosion', self.body:getX(), self.body:getY())
+        impact_sound:stop()
+        impact_sound:play()
         self.dead = true
     end
 end
