@@ -11,6 +11,7 @@ require "obj/Area"
 require "obj/GameObject"
 require "obj/Player"
 require "obj/Projectile"
+require "obj/Director"
 require "obj/Explosion"
 
 function love.load()
@@ -29,7 +30,7 @@ function love.load()
     impact_sound = love.audio.newSource("res/sounds/impact.ogg", "static")
     projectile_launch_sound = love.audio.newSource("res/sounds/projectile_launch.wav", "static")
 
-    debug = true
+    debug = false
 
     coll_debug = {}
     coll_debug.x = 0
@@ -60,10 +61,12 @@ function love.update(dt)
 
     if stage then stage:update(dt) end
 
-    if stage.area:collided(coll_debug.x, coll_debug.y, coll_debug.w, coll_debug.h) then
-        coll_debug.hit = true
-    else
-        coll_debug.hit = false
+    if debug then
+        if stage.area:collided(coll_debug.x, coll_debug.y, coll_debug.w, coll_debug.h) then
+            coll_debug.hit = true
+        else
+            coll_debug.hit = false
+        end
     end
 end
 
@@ -74,11 +77,12 @@ function love.draw()
         if stage then stage:draw() end
     end)
 
-    if coll_debug.hit then
-        love.graphics.print("Collision hit", 100, 20)
-    else
-        love.graphics.print("Collision miss", 100, 20)
-
+    if debug then
+        if coll_debug.hit then
+            love.graphics.print("Collision hit", 100, 20)
+        else
+            love.graphics.print("Collision miss", 100, 20)
+        end
     end
 
     if debug then

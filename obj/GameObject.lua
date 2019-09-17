@@ -3,7 +3,7 @@ GameObject = Object:extend()
 function GameObject:new(area, x, y, opts)
     local opts = opts or {}
     if opts then
-        for k, v in ipairs(opts) do
+        for k,v in pairs(opts) do
             self[k] = v
         end
     end
@@ -13,6 +13,7 @@ function GameObject:new(area, x, y, opts)
     self.y = y
     self.id = UUID()
     self.dead = false
+    self.paused = true
     self.timer = Timer()
 end
 

@@ -54,6 +54,10 @@ function Player:update(dt)
         self.vy = self.vy - (self.gravity * dt)
     end
 
+    if self.paused == true then
+        return
+    end
+
     -- Move barrel up
     if input:down('up') and self.barrel.angle > -180 then
         if (input:down('shift')) then
@@ -107,13 +111,11 @@ function Player:draw()
     -- Draw particle effects
     love.graphics.draw(self.p_system, self.barrel.x + 1.2 * self.barrel.w * math.cos(math.rad(self.barrel.angle)), self.barrel.y + 1.2 * self.barrel.w * math.sin(math.rad(self.barrel.angle)))
 
-    love.graphics.setColor(0.4, 0.7, 0.1)
+    -- Tank
+    love.graphics.setColor(self.color)
     love.graphics.draw(self.gfx, self.x, self.y)
-    love.graphics.setColor(1, 0, 0)
-    -- love.graphics.rectangle("line", self.hitbox.x, self.hitbox.y, self.hitbox.w, self.hitbox.h)
-    love.graphics.setColor(1, 1, 1)
 
-    love.graphics.print("Barrel angle: " .. math.floor(self.barrel.angle), 10, 10)
+    -- Tank barrel
     love.graphics.push()
     love.graphics.translate(self.barrel.x, self.barrel.y)
     love.graphics.rotate(math.rad(self.barrel.angle))
