@@ -1,7 +1,7 @@
 Area = Object:extend()
 
-function Area:new(room)
-    self.room = room
+function Area:new(stage)
+    self.stage = stage
     self.game_objects = {}
 
     self.map_image_data = love.image.newImageData("res/map.bmp")

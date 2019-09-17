@@ -54,7 +54,7 @@ function Player:update(dt)
         self.vy = self.vy - (self.gravity * dt)
     end
 
-    if self.paused == true then
+    if self.paused then
         return
     end
 
@@ -104,6 +104,8 @@ function Player:update(dt)
         self.p_system:emit(32)
 
         self.area:addGameObject('Projectile', self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
+
+        self.area.stage.director:nextPlayer()
     end
 end
 
