@@ -29,6 +29,9 @@ function love.load()
     love.audio.setVolume(0.1)
     impact_sound = love.audio.newSource("res/sounds/impact.ogg", "static")
     projectile_launch_sound = love.audio.newSource("res/sounds/projectile_launch.wav", "static")
+    bg_music = love.audio.newSource("res/sounds/bg.mp3", "stream")
+    bg_music:setLooping(true)
+    bg_music:play()
 
     debug = false
 
