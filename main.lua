@@ -13,6 +13,7 @@ require "obj/Player"
 require "obj/Projectile"
 require "obj/Director"
 require "obj/Explosion"
+require "obj/Map"
 
 function love.load()
     -- love.graphics.setDefaultFilter('nearest', 'nearest')
@@ -24,39 +25,37 @@ function love.load()
     effect.disable("crt", "chromasep")
 
     timer = Timer()
-    input = Input()
 
     love.audio.setVolume(0.1)
     impact_sound = love.audio.newSource("res/sounds/impact.ogg", "static")
     projectile_launch_sound = love.audio.newSource("res/sounds/projectile_launch.wav", "static")
-    bg_music = love.audio.newSource("res/sounds/bg.mp3", "stream")
+    bg_music = love.audio.newSource("res/sounds/bg.ogg", "stream")
     bg_music:setLooping(true)
     bg_music:play()
 
-    input:bind('mouse1', 'm1')
-    input:bind('w', 'up')
-    input:bind('s', 'down')
-    input:bind('d', 'fwd')
-    input:bind('a', 'bwd')
-    input:bind('lshift', 'shift')
-    input:bind('space', 'shoot')
-    input:bind('f3', 'debug')
-
     camera = Camera()
-    stage = Stage()
+    map = Map()
+    director = Director()
+
+    director:addPlayer(100, 300, {0.4, 0.7, 0.1})
+    director:addPlayer(900, 300, {0.6, 0.1, 0.2})
+    director:addPlayer(600, 100, {0.2, 0.5, 0.8})
+    director:startRound()
 end
 
 function love.update(dt)
     timer:update(dt)
     camera:update(dt)
-    stage:update(dt)
+    map:update(dt)
+    director:update(dt)
 end
 
 function love.draw()
     love.graphics.setBackgroundColor(19/255, 0, 56/255)
 
     effect(function()
-        stage:draw()
+        map:draw()
+        director:draw()
     end)
 end
 

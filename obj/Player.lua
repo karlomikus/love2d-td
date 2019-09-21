@@ -3,6 +3,14 @@ Player = GameObject:extend()
 function Player:new(area, x, y, opts)
     Player.super.new(self, area, x, y, opts)
 
+    self.input = Input()
+    self.input:bind('w', 'up')
+    self.input:bind('s', 'down')
+    self.input:bind('d', 'fwd')
+    self.input:bind('a', 'bwd')
+    self.input:bind('lshift', 'shift')
+    self.input:bind('space', 'shoot')
+
     self.gfx = love.graphics.newImage("res/tank.png")
     self.w = 32
     self.h = 32
@@ -31,6 +39,8 @@ function Player:new(area, x, y, opts)
     self.speed = 150
     self.gravity = -1000
     self.vy = 0
+
+    self.has_finished_action = false
 end
 
 function Player:update(dt)
@@ -46,7 +56,7 @@ function Player:update(dt)
     self.barrel.y = (self.y + self.h / 2) - 3
 
     -- Gravity
-    if self.area:collided(self.x, self.y + self.hitbox.h, self.hitbox.w, 1) then
+    if map:collided(self.x, self.y + self.hitbox.h, self.hitbox.w, 1) then
         self.y = oldY
         self.vy = 0
     else
@@ -54,13 +64,13 @@ function Player:update(dt)
         self.vy = self.vy - (self.gravity * dt)
     end
 
-    if self.paused then
+    if director.current_player.id ~= self.id then
         return
     end
 
     -- Move barrel up
-    if input:down('up') and self.barrel.angle > -180 then
-        if (input:down('shift')) then
+    if self.input:down('up') and self.barrel.angle > -180 then
+        if (self.input:down('shift')) then
             self.barrel.angle = self.barrel.angle - 150 * dt
         else
             self.barrel.angle = self.barrel.angle - 50 * dt
@@ -68,8 +78,8 @@ function Player:update(dt)
     end
 
     -- Move barrel down
-    if input:down('down') and self.barrel.angle < 0 then
-        if (input:down('shift')) then
+    if self.input:down('down') and self.barrel.angle < 0 then
+        if (self.input:down('shift')) then
             self.barrel.angle = self.barrel.angle + 150 * dt
         else
             self.barrel.angle = self.barrel.angle + 20 * dt
@@ -77,36 +87,37 @@ function Player:update(dt)
     end
 
     -- Move tank forward
-    if input:down('fwd') then
-        if not self.area:collided(self.x + self.hitbox.w, self.y, 1, self.hitbox.h - self.hitbox.damping) then
+    if self.input:down('fwd') then
+        if not map:collided(self.x + self.hitbox.w, self.y, 1, self.hitbox.h - self.hitbox.damping) then
             self.x = self.x + (self.speed * dt)
-            if self.area:collided(self.x, self.y + self.hitbox.h - self.hitbox.damping, self.hitbox.w, 1) then
+            if map:collided(self.x, self.y + self.hitbox.h - self.hitbox.damping, self.hitbox.w, 1) then
                 self.y = self.y - 1
             end
         end
     end
 
     -- Move tank backward
-    if input:down('bwd') then
-        if not self.area:collided(self.x - 1, self.y, 1, self.hitbox.h - self.hitbox.damping) then
+    if self.input:down('bwd') then
+        if not map:collided(self.x - 1, self.y, 1, self.hitbox.h - self.hitbox.damping) then
             self.x = self.x - (self.speed * dt)
-            if self.area:collided(self.x, self.y + self.hitbox.h - self.hitbox.damping, self.hitbox.w, 1) then
+            if map:collided(self.x, self.y + self.hitbox.h - self.hitbox.damping, self.hitbox.w, 1) then
                 self.y = self.y - 1
             end
         end
     end
 
     -- Shoot chosen weapon
-    if input:pressed('shoot') then
+    if self.input:pressed('shoot') and director.current_player.id == self.id then
+        print("shot by: " .. self.id)
+        self.has_finished_action = true
         projectile_launch_sound:stop()
         projectile_launch_sound:play()
         local d = 1.2 * self.barrel.w
         self.p_system:emit(32)
 
-        self.area:addGameObject('Projectile', self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
-
-        self.area.stage.director:nextPlayer()
+        -- self.area:addGameObject('Projectile', self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
     end
+
 end
 
 function Player:draw()

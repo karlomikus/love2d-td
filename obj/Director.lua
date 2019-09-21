@@ -1,44 +1,39 @@
 Director = Object:extend()
 
-function Director:new(stage)
-    self.stage = stage
-
+function Director:new()
     self.players = {}
+    self.current_player = nil
 end
 
 function Director:update(dt)
+    for _, p in ipairs(self.players) do
+        if p.has_finished_action then
+            self:nextPlayer(p)
+        end
+        p:update(dt)
+    end
+end
+
+function Director:draw()
+    for k,p in ipairs(self.players) do
+        p:draw()
+    end
 end
 
 function Director:addPlayer(x, y, color)
-    local player = self.stage.area:addGameObject('Player', x, y, {color = color})
+    local player = Player(nil, x, y, {color = color})
 
     table.insert(self.players, player)
 end
 
 function Director:startRound()
-    print("Starting round")
-    -- self.players[1].paused = false
-    self.players[1].paused = false
-    -- self.current_player.paused = false
-
-    -- self:nextPlayer()
+    self.current_player = self.players[1]
 end
 
-function Director:getCurrentPlayer()
-    for _, p in ipairs(self.players) do
-        if p.paused == false then
-            return p
-        end
-    end
+function Director:nextPlayer(shot_player)
+    shot_player.has_finished_action = false
 
-    return nil
-end
-
-function Director:nextPlayer()
-    print("Changing player")
-
-    local prev_p_id = self:getCurrentPlayer().id
-    self:getCurrentPlayer().paused = true
+    local prev_p_id = shot_player.id
 
     local next_index = 1
     for k,v in pairs(self.players) do
@@ -51,5 +46,5 @@ function Director:nextPlayer()
         next_index = 1
     end
 
-    self.players[next_index].paused = false
+    self.current_player = self.players[next_index]
 end
