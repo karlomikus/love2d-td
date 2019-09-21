@@ -3,6 +3,8 @@ Director = Object:extend()
 function Director:new()
     self.players = {}
     self.current_player = nil
+    self.current_round_timer = 0
+    self.current_round_timer_handler = nil
 end
 
 function Director:update(dt)
@@ -15,13 +17,14 @@ function Director:update(dt)
 end
 
 function Director:draw()
+    love.graphics.print("Round timer: " .. self.current_round_timer)
     for k,p in ipairs(self.players) do
         p:draw()
     end
 end
 
 function Director:addPlayer(x, y, color)
-    local player = Player(nil, x, y, {color = color})
+    local player = Player(self, x, y, {color = color})
 
     table.insert(self.players, player)
 end
@@ -47,4 +50,13 @@ function Director:nextPlayer(shot_player)
     end
 
     self.current_player = self.players[next_index]
+
+    if self.current_round_timer_handler then
+        Timer.cancel(self.current_round_timer_handler)
+        director.current_round_timer = 0
+    end
+
+    self.current_round_timer_handler = global_timer:every(1, function ()
+        director.current_round_timer = director.current_round_timer + 1
+    end)
 end

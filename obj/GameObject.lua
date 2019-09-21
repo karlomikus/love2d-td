@@ -1,6 +1,6 @@
 GameObject = Object:extend()
 
-function GameObject:new(area, x, y, opts)
+function GameObject:new(director, x, y, opts)
     local opts = opts or {}
     if opts then
         for k,v in pairs(opts) do
@@ -8,7 +8,7 @@ function GameObject:new(area, x, y, opts)
         end
     end
 
-    self.area = area
+    self.director = director
     self.x = x
     self.y = y
     self.id = UUID()

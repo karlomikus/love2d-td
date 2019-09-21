@@ -1,7 +1,7 @@
 Player = GameObject:extend()
 
-function Player:new(area, x, y, opts)
-    Player.super.new(self, area, x, y, opts)
+function Player:new(director, x, y, opts)
+    Player.super.new(self, director, x, y, opts)
 
     self.input = Input()
     self.input:bind('w', 'up')
@@ -115,7 +115,7 @@ function Player:update(dt)
         local d = 1.2 * self.barrel.w
         self.p_system:emit(32)
 
-        -- self.area:addGameObject('Projectile', self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
+        map:addGameObject('Rocket', self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
     end
 
 end

@@ -15,6 +15,8 @@ require "obj/Director"
 require "obj/Explosion"
 require "obj/Map"
 
+require "obj/weapons/Rocket"
+
 function love.load()
     -- love.graphics.setDefaultFilter('nearest', 'nearest')
     -- background = love.graphics.newImage("res/bg.jpg")
@@ -24,7 +26,7 @@ function love.load()
     -- effect.chromasep.radius = 2
     effect.disable("crt", "chromasep")
 
-    timer = Timer()
+    global_timer = Timer()
 
     love.audio.setVolume(0.1)
     impact_sound = love.audio.newSource("res/sounds/impact.ogg", "static")
@@ -44,7 +46,7 @@ function love.load()
 end
 
 function love.update(dt)
-    timer:update(dt)
+    global_timer:update(dt)
     camera:update(dt)
     map:update(dt)
     director:update(dt)
