@@ -27,7 +27,7 @@ function Explosion:update(dt)
                 if self.x + x < map.map_image_data:getWidth() and self.y + y < map.map_image_data:getHeight() and self.x + x > 0 and self.y + y > 0 then
                     local r, g, b, a = map.map_image_data:getPixel(self.x + x, self.y + y)
                     if a > 0 then
-                        map.map_image_data:setPixel(self.x + x, self.y + y, 1, 0, 0, 1)
+                        map.map_image_data:setPixel(self.x + x, self.y + y, COLORS.ORANGE[1], COLORS.ORANGE[2], COLORS.ORANGE[3], 1)
                     end
                 end
             end

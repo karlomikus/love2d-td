@@ -115,8 +115,8 @@ function Player:update(dt)
         local d = 1.2 * self.barrel.w
         self.p_system:emit(32)
 
-        -- map:addGameObject('Rocket', self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
-        map:addGameObject('Laser', self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
+        map:addGameObject('Rocket', self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
+        -- map:addGameObject('Laser', self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
     end
 
 end
@@ -128,11 +128,14 @@ function Player:draw()
     -- Tank
     love.graphics.setColor(self.color)
     love.graphics.draw(self.gfx, self.x, self.y)
+    love.graphics.setColor(1, 1, 1)
 
     -- Tank barrel
     love.graphics.push()
+    love.graphics.setColor(self.color)
     love.graphics.translate(self.barrel.x, self.barrel.y)
     love.graphics.rotate(math.rad(self.barrel.angle))
     love.graphics.rectangle("fill", 0, 0, self.barrel.w, self.barrel.h)
+    love.graphics.setColor(1, 1, 1)
     love.graphics.pop()
 end
