@@ -21,10 +21,22 @@ function Director:draw()
     for k,p in ipairs(self.players) do
         p:draw()
     end
+
+    local i = 15
+    for _, player in ipairs(self.players) do
+        love.graphics.setColor(player.color)
+        love.graphics.print("PlayerID: " .. player.id, 20, 10 + i)
+        love.graphics.setColor(1, 1, 1)
+        i = i + 15
+    end
+
+    if self.current_player then
+        love.graphics.print("Current player: " .. self.current_player.id, 600, 10)
+    end
 end
 
 function Director:addPlayer(x, y, color)
-    local player = Player(self, x, y, {color = color})
+    local player = Player(x, y, {color = color})
 
     table.insert(self.players, player)
 end

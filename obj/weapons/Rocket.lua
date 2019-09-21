@@ -1,7 +1,7 @@
 Rocket = GameObject:extend()
 
-function Rocket:new(test, x, y, opts)
-    Rocket.super.new(self, test, x, y, opts)
+function Rocket:new(x, y, opts)
+    Rocket.super.new(self, x, y, opts)
 
     self.velocity = 500
     self.rot = math.rad(opts.rot)

@@ -7,15 +7,12 @@ Timer = require "libs/Timer"
 Camera = require "libs/Camera"
 Bresenham = require "libs/Bresenham"
 
-require "obj/Stage"
-require "obj/Area"
 require "obj/GameObject"
 require "obj/Player"
-require "obj/Projectile"
 require "obj/Director"
-require "obj/Explosion"
 require "obj/Map"
 
+require "obj/weapons/Explosion"
 require "obj/weapons/Rocket"
 require "obj/weapons/Laser"
 

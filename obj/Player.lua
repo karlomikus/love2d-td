@@ -1,7 +1,7 @@
 Player = GameObject:extend()
 
-function Player:new(director, x, y, opts)
-    Player.super.new(self, director, x, y, opts)
+function Player:new(x, y, opts)
+    Player.super.new(self, x, y, opts)
 
     self.input = Input()
     self.input:bind('w', 'up')
@@ -108,7 +108,6 @@ function Player:update(dt)
 
     -- Shoot chosen weapon
     if self.input:pressed('shoot') and director.current_player.id == self.id then
-        print("shot by: " .. self.id)
         self.has_finished_action = true
         projectile_launch_sound:stop()
         projectile_launch_sound:play()
