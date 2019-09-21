@@ -36,8 +36,8 @@ function Player:new(director, x, y, opts)
     self.barrel.y = self.y
     self.barrel.angle = 0
 
-    self.speed = 150
-    self.gravity = -1000
+    self.speed = 50
+    self.gravity = -1200
     self.vy = 0
 
     self.has_finished_action = false
@@ -115,7 +115,8 @@ function Player:update(dt)
         local d = 1.2 * self.barrel.w
         self.p_system:emit(32)
 
-        map:addGameObject('Rocket', self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
+        -- map:addGameObject('Rocket', self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
+        map:addGameObject('Laser', self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
     end
 
 end

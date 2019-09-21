@@ -5,6 +5,7 @@ Object = require "libs/classic"
 Input = require "libs/Input"
 Timer = require "libs/Timer"
 Camera = require "libs/Camera"
+Bresenham = require "libs/Bresenham"
 
 require "obj/Stage"
 require "obj/Area"
@@ -16,6 +17,7 @@ require "obj/Explosion"
 require "obj/Map"
 
 require "obj/weapons/Rocket"
+require "obj/weapons/Laser"
 
 function love.load()
     -- love.graphics.setDefaultFilter('nearest', 'nearest')
