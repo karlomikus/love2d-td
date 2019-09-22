@@ -33,22 +33,27 @@ function Director:update(dt)
 end
 
 function Director:draw()
-    love.graphics.print("Round timer: " .. self.current_round_seconds .. "s")
+    love.graphics.print("Round timer: " .. self.current_round_seconds .. "s", gw - 300, 10)
     for k,p in ipairs(self.players) do
         p:draw()
     end
 
     local i = 15
+    local t = nil
     for _, player in ipairs(self.players) do
+        if player.id == self.current_player.id then
+            t = "<-"
+        else
+            t = ""
+        end
+
         love.graphics.setColor(player.color)
-        love.graphics.print(player.name .. " [" .. player.hp .. "]", 20, 10 + i)
+        love.graphics.print(string.format("%s [%s] %s", player.name, player.hp, t), 20, 10 + i)
         love.graphics.setColor(1, 1, 1)
         i = i + 40
     end
 
     if self.current_player then
-        love.graphics.print("Current player: " .. self.current_player.name, 600, 10)
-
         love.graphics.setColor(self.current_player_indicator.color)
         love.graphics.circle("line", self.current_player_indicator.x + self.current_player.w / 2, self.current_player_indicator.y + self.current_player.h / 2, 40)
         love.graphics.setColor(1, 1, 1, 1)

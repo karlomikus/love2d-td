@@ -11,6 +11,7 @@ require "obj/GameObject"
 require "obj/Player"
 require "obj/Director"
 require "obj/Map"
+require "obj/Inventory"
 
 require "obj/weapons/Explosion"
 require "obj/weapons/Rocket"
@@ -61,6 +62,7 @@ function love.load()
     camera = Camera()
     map = Map()
     director = Director()
+    inventory = Inventory()
 
     director:addPlayer(100, 300, {color = COLORS["GREEN"], name = "Player 1"})
     director:addPlayer(900, 300, {color = COLORS["RED"], name = "Player 2"})
@@ -73,6 +75,7 @@ function love.update(dt)
     camera:update(dt)
     map:update(dt)
     director:update(dt)
+    inventory:update(dt)
 end
 
 function love.draw()
@@ -83,6 +86,7 @@ function love.draw()
         map:draw()
         director:draw()
     end)
+    inventory:draw()
 end
 
 function love.keypressed(key)
