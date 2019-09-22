@@ -29,6 +29,7 @@ function love.load()
 
     global_timer = Timer()
 
+    COLORS["BG"] = { hex2rgb("#130038") }
     COLORS["SLATE_DARK"] = { hex2rgb("#2e2c3b") }
     COLORS["SLATE_MED"] = { hex2rgb("#3e415f") }
     COLORS["SLATE_LIGHT"] = { hex2rgb("#55607d") }
@@ -72,7 +73,7 @@ function love.update(dt)
 end
 
 function love.draw()
-    love.graphics.setBackgroundColor(19/255, 0, 56/255)
+    love.graphics.setBackgroundColor(COLORS["BG"])
 
     effect(function()
         map:draw()
