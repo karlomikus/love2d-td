@@ -15,6 +15,8 @@ function Player:new(x, y, opts)
     self.w = 32
     self.h = 32
 
+    self.hp = 1000
+
     local ex_img = love.graphics.newImage("res/explosion.png")
     self.p_system = love.graphics.newParticleSystem(ex_img, 32)
     self.p_system:setParticleLifetime(0.5, 0.5)

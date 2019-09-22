@@ -38,7 +38,7 @@ function Director:draw()
     local i = 15
     for _, player in ipairs(self.players) do
         love.graphics.setColor(player.color)
-        love.graphics.print("PlayerID: " .. player.id, 20, 10 + i)
+        love.graphics.print("PlayerID: " .. player.id .. " [" .. player.hp .. "]", 20, 10 + i)
         love.graphics.setColor(1, 1, 1)
         i = i + 15
     end
