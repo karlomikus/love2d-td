@@ -52,9 +52,9 @@ end
 
 function Map:draw()
     -- sun
-    love.graphics.setColor(unpack(COLORS["YELLOW"]))
-    love.graphics.circle("fill", gw/2, gh/2, 200)
-    love.graphics.setColor(1, 1, 1)
+    -- love.graphics.setColor(unpack(COLORS["YELLOW"]))
+    -- love.graphics.circle("fill", gw/2, gh/2, 200)
+    -- love.graphics.setColor(1, 1, 1)
 
     love.graphics.setColor(15/255, 2/255, 43/255)
     love.graphics.rectangle("fill", 0, gh/2 + 100, gw, gh)

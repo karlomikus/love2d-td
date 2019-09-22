@@ -14,6 +14,7 @@ require "obj/Map"
 
 require "obj/weapons/Explosion"
 require "obj/weapons/Rocket"
+require "obj/weapons/RocketTrail"
 require "obj/weapons/Laser"
 
 COLORS = {}
@@ -93,4 +94,8 @@ end
 function hex2rgb(hex)
     hex = hex:gsub("#","")
     return tonumber("0x"..hex:sub(1,2)) / 255, tonumber("0x"..hex:sub(3,4)) / 255, tonumber("0x"..hex:sub(5,6)) / 255
+end
+
+function randomp(min, max)
+    return (min > max and (love.math.random()*(min - max) + max)) or (love.math.random()*(max - min) + min)
 end
