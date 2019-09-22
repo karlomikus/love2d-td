@@ -3,25 +3,28 @@ Director = Object:extend()
 function Director:new()
     self.players = {}
     self.current_player = nil
-    self.current_round_timer = 0
-    self.current_round_timer_handler = nil
+    self.current_round_seconds = 0
+    self.max_round_time = 60
 
     self.current_player_indicator = {}
     self.current_player_indicator.x = 0
     self.current_player_indicator.y = 0
     self.current_player_indicator.color = {1, 1, 1, 1}
-    -- Timer.tween(2, self.current_player_indicator, {color = {1, 1, 1, 0}}, 'in-out-quad')
+
+    self.round_timer_handler = global_timer:every(1, function ()
+        self.current_round_seconds = self.current_round_seconds + 1
+    end, self.max_round_time)
 end
 
 function Director:update(dt)
+    Timer.update(dt)
+
     for _, p in ipairs(self.players) do
         if p.has_finished_action then
             self:nextPlayer(p)
         end
         p:update(dt)
     end
-
-    Timer.update(dt)
 
     self.current_player_indicator.x = self.current_player.x
     self.current_player_indicator.y = self.current_player.y
@@ -30,7 +33,7 @@ function Director:update(dt)
 end
 
 function Director:draw()
-    love.graphics.print("Round timer: " .. self.current_round_timer)
+    love.graphics.print("Round timer: " .. self.current_round_seconds .. "s")
     for k,p in ipairs(self.players) do
         p:draw()
     end
@@ -99,15 +102,8 @@ function Director:nextPlayer(shot_player)
         self.current_player = self.players[1]
     end
 
-    if self.current_round_timer_handler then
-        Timer.cancel(self.current_round_timer_handler)
-        director.current_round_timer = 0
-    end
-
-    self.current_round_timer_handler = global_timer:every(1, function ()
-        director.current_round_timer = director.current_round_timer + 1
-    end)
-
+    self.current_round_seconds = 0
+    Timer.cancel(self.round_timer_handler)
     self.current_player_indicator.color = {1, 1, 1, 1}
     Timer.tween(1, self.current_player_indicator, {color = {1, 1, 1, 0}}, 'in-out-quad')
 end
