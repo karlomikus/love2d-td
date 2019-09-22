@@ -14,6 +14,8 @@ function Director:update(dt)
         end
         p:update(dt)
     end
+
+    camera:follow(self.current_player.x, self.current_player.y)
 end
 
 function Director:draw()

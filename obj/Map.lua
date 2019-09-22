@@ -1,16 +1,35 @@
 Map = Object:extend()
 
 function Map:new()
+    local terrain_top_border_height = 8
+    local terrain_top_border_color = COLORS["ELECTRO_GREEN"]
+
     self:addPhysicsWorld()
     self.game_objects = {}
     self.map_image_data = love.image.newImageData("res/map.bmp")
     self.map_image_data:mapPixel(function (x, y, r, g, b, a)
         if r == 0 and b == 0 and g == 1 then
             a = 0
+        else
+            r, g, b = unpack(COLORS["SLATE_LIGHT"])
         end
 
         return r, g, b, a
     end)
+
+    -- Add top border
+    for x = 1, self.map_image_data:getWidth() do
+        for y = 1, self.map_image_data:getHeight() do
+            local r,g,b,a = self:getPixel(x, y)
+            local rb,gb,bb,ab = self:getPixel(x, y + 1)
+            if a == 0 and ab == 1 then
+                for i = 1, terrain_top_border_height do
+                    self.map_image_data:setPixel(x, y + i, unpack(terrain_top_border_color))
+                end
+            end
+        end
+    end
+
     self.map = love.graphics.newImage(self.map_image_data)
 end
 
@@ -64,4 +83,12 @@ function Map:collided(hx, hy, hw, hh)
             end
         end
     end
+end
+
+function Map:getPixel(x, y)
+    if x >= self.map_image_data:getWidth() or x <= 0 or y >= self.map_image_data:getHeight() or y <= 0 then
+        return 0, 0, 0, 0
+    end
+
+    return self.map_image_data:getPixel(math.floor(x), math.floor(y))
 end

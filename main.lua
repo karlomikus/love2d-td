@@ -19,7 +19,8 @@ require "obj/weapons/Laser"
 COLORS = {}
 
 function love.load()
-    -- love.graphics.setDefaultFilter('nearest', 'nearest')
+    love.graphics.setDefaultFilter('nearest', 'nearest')
+
     -- background = love.graphics.newImage("res/bg.jpg")
     effect = moonshine(moonshine.effects.crt).chain(moonshine.effects.chromasep)
     -- effect.chromasep.angle = math.rad(30)
