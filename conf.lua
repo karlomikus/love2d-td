@@ -8,5 +8,5 @@ function love.conf(t)
     t.window.height = gh
     t.console = true
 
-    t.window.title = "TANKS"
+    t.window.title = "NS Tanks 2000"
 end

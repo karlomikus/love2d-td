@@ -17,6 +17,10 @@ function Player:new(x, y, opts)
 
     self.hp = 1000
 
+    if not self.name then
+        self.name = self.id
+    end
+
     local ex_img = love.graphics.newImage("res/explosion.png")
     self.p_system = love.graphics.newParticleSystem(ex_img, 32)
     self.p_system:setParticleLifetime(0.5, 0.5)
@@ -50,6 +54,10 @@ function Player:update(dt)
     local oldX, oldY = self.x, self.y
 
     self.p_system:update(dt)
+
+    if self.hp <= 0 then
+        self.dead = true
+    end
 
     self.hitbox.x = self.x
     self.hitbox.y = self.y

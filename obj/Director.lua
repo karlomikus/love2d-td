@@ -38,13 +38,13 @@ function Director:draw()
     local i = 15
     for _, player in ipairs(self.players) do
         love.graphics.setColor(player.color)
-        love.graphics.print("PlayerID: " .. player.id .. " [" .. player.hp .. "]", 20, 10 + i)
+        love.graphics.print(player.name .. " [" .. player.hp .. "]", 20, 10 + i)
         love.graphics.setColor(1, 1, 1)
-        i = i + 15
+        i = i + 40
     end
 
     if self.current_player then
-        love.graphics.print("Current player: " .. self.current_player.id, 600, 10)
+        love.graphics.print("Current player: " .. self.current_player.name, 600, 10)
 
         love.graphics.setColor(self.current_player_indicator.color)
         love.graphics.circle("line", self.current_player_indicator.x + self.current_player.w / 2, self.current_player_indicator.y + self.current_player.h / 2, 40)
@@ -52,8 +52,8 @@ function Director:draw()
     end
 end
 
-function Director:addPlayer(x, y, color)
-    local player = Player(x, y, {color = color})
+function Director:addPlayer(x, y, opts)
+    local player = Player(x, y, opts)
 
     table.insert(self.players, player)
 end

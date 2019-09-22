@@ -51,6 +51,7 @@ function Map:update(dt)
 end
 
 function Map:draw()
+    -- sun
     love.graphics.setColor(unpack(COLORS["YELLOW"]))
     love.graphics.circle("fill", gw/2, gh/2, 200)
     love.graphics.setColor(1, 1, 1)
@@ -81,6 +82,9 @@ function Map:addPhysicsWorld()
 end
 
 function Map:collided(hx, hy, hw, hh)
+    -- Check top, and sides
+
+    -- Check bottom
     if hx + hw > self.map_image_data:getWidth() or hx < 0 or hy + hh > self.map_image_data:getHeight() or hy < 0 then
         return true
     end

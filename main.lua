@@ -21,6 +21,8 @@ COLORS = {}
 function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
+    mainFont = love.graphics.newFont("res/forcedsquare.ttf", 32)
+
     -- background = love.graphics.newImage("res/bg.jpg")
     effect = moonshine(moonshine.effects.crt).chain(moonshine.effects.chromasep)
     -- effect.chromasep.angle = math.rad(30)
@@ -59,9 +61,9 @@ function love.load()
     map = Map()
     director = Director()
 
-    director:addPlayer(100, 300, COLORS["GREEN"])
-    director:addPlayer(900, 300, COLORS["RED"])
-    director:addPlayer(600, 100, COLORS["BLUE"])
+    director:addPlayer(100, 300, {color = COLORS["GREEN"], name = "Player 1"})
+    director:addPlayer(900, 300, {color = COLORS["RED"], name = "Player 2"})
+    director:addPlayer(600, 100, {color = COLORS["BLUE"], name = "Player 3"})
     director:startRound()
 end
 
@@ -74,6 +76,7 @@ end
 
 function love.draw()
     love.graphics.setBackgroundColor(COLORS["BG"])
+    love.graphics.setFont(mainFont)
 
     effect(function()
         map:draw()
