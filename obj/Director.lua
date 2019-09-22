@@ -58,6 +58,21 @@ function Director:addPlayer(x, y, opts)
     table.insert(self.players, player)
 end
 
+function Director:removePlayer(id)
+    local index = 1
+    for k,v in pairs(self.players) do
+        if v.id == id then
+            index = k
+        end
+    end
+
+    table.remove(self.players, index)
+
+    if self.current_player.id == id then
+        self:nextPlayer()
+    end
+end
+
 function Director:startRound()
     self:nextPlayer(nil)
 end

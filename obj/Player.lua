@@ -15,7 +15,7 @@ function Player:new(x, y, opts)
     self.w = 32
     self.h = 32
 
-    self.hp = 1000
+    self.hp = 100
 
     if not self.name then
         self.name = self.id
@@ -56,7 +56,7 @@ function Player:update(dt)
     self.p_system:update(dt)
 
     if self.hp <= 0 then
-        self.dead = true
+        director:removePlayer(self.id)
     end
 
     self.hitbox.x = self.x
