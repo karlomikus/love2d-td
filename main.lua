@@ -6,17 +6,6 @@ Input = require "libs/Input"
 Timer = require "libs/Timer"
 Bresenham = require "libs/Bresenham"
 
-require "obj/GameObject"
-require "obj/Player"
-require "obj/Director"
-require "obj/Map"
-require "obj/Inventory"
-
-require "obj/weapons/Explosion"
-require "obj/weapons/Rocket"
-require "obj/weapons/RocketTrail"
-require "obj/weapons/Laser"
-
 COLORS = {
     BG = { hex2rgb("#130038") },
     SLATE_DARK = { hex2rgb("#2e2c3b") },
@@ -39,6 +28,11 @@ COLORS = {
 }
 
 function love.load()
+    -- Include all obj files
+    local object_files = {}
+    recursiveEnumerate('obj', object_files)
+    requireFiles(object_files)
+
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
     mainFont = love.graphics.newFont("res/forcedsquare.ttf", 30)
