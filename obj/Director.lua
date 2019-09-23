@@ -48,7 +48,7 @@ function Director:draw()
         end
 
         love.graphics.setColor(player.color)
-        love.graphics.print(string.format("%s [%s] %s", player.name, player.hp, t), 20, 10 + i)
+        love.graphics.print(string.format("%s [hp: %s] [mp: %s] %s", player.name, player.hp, player.mp, t), 20, 10 + i)
         love.graphics.setColor(1, 1, 1)
         i = i + 40
     end

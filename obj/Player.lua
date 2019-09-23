@@ -16,6 +16,7 @@ function Player:new(x, y, opts)
     self.h = 32
 
     self.hp = 100
+    self.mp = 750
 
     if not self.name then
         self.name = self.id
@@ -97,7 +98,8 @@ function Player:update(dt)
     end
 
     -- Move tank forward
-    if self.input:down('fwd') then
+    if self.input:down('fwd') and self.mp > 0 then
+        self.mp = math.floor(self.mp - 10 * dt)
         if not map:collided(self.x + self.hitbox.w, self.y, 1, self.hitbox.h - self.hitbox.damping) then
             self.x = self.x + (self.speed * dt)
             if map:collided(self.x, self.y + self.hitbox.h - self.hitbox.damping, self.hitbox.w, 1) then
@@ -107,7 +109,8 @@ function Player:update(dt)
     end
 
     -- Move tank backward
-    if self.input:down('bwd') then
+    if self.input:down('bwd') and self.mp > 0 then
+        self.mp = math.floor(self.mp - 10 * dt)
         if not map:collided(self.x - 1, self.y, 1, self.hitbox.h - self.hitbox.damping) then
             self.x = self.x - (self.speed * dt)
             if map:collided(self.x, self.y + self.hitbox.h - self.hitbox.damping, self.hitbox.w, 1) then

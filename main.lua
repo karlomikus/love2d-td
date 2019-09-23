@@ -23,7 +23,7 @@ COLORS = {}
 function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
-    mainFont = love.graphics.newFont("res/forcedsquare.ttf", 32)
+    mainFont = love.graphics.newFont("res/forcedsquare.ttf", 30)
 
     -- background = love.graphics.newImage("res/bg.jpg")
     effect = moonshine(moonshine.effects.crt).chain(moonshine.effects.chromasep)
