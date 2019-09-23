@@ -20,9 +20,6 @@ function Director:update(dt)
     Timer.update(dt)
 
     for _, p in ipairs(self.players) do
-        if p.finished_action then
-            -- self:nextPlayer(p)
-        end
         p:update(dt)
     end
 
@@ -111,4 +108,8 @@ function Director:nextPlayer(shot_player)
     Timer.cancel(self.round_timer_handler)
     self.current_player_indicator.color = {1, 1, 1, 1}
     Timer.tween(1, self.current_player_indicator, {color = {1, 1, 1, 0}}, 'in-out-quad')
+end
+
+function love.handlers.endTurn()
+    director:nextPlayer(director.current_player)
 end

@@ -103,8 +103,3 @@ end
 function randomp(min, max)
     return (min > max and (love.math.random()*(min - max) + max)) or (love.math.random()*(max - min) + min)
 end
-
-function love.handlers.endTurn()
-    print("ending turn")
-    director:nextPlayer(director.current_player)
-end

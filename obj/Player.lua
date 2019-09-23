@@ -85,6 +85,10 @@ function Player:update(dt)
         return
     end
 
+    if self.finished_action then
+        return
+    end
+
     -- Move barrel up
     if self.input:down('inc_barrel_angle') and self.barrel.angle > -180 then
         if (self.input:down('shift')) then
