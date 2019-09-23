@@ -21,8 +21,6 @@ end
 function Rocket:update(dt)
     Rocket.super.update(self, dt)
 
-
-
     for _, p in ipairs(director.players) do
         if (self.body:getX() >= p.hitbox.x and self.body:getX() <= p.hitbox.x + p.hitbox.w) and (self.body:getY() >= p.hitbox.y and self.body:getY() <= p.hitbox.y + p.hitbox.h) then
             self:onHit(self.body:getX(), self.body:getY())

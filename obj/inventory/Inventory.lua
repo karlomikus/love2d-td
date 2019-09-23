@@ -34,3 +34,7 @@ function Inventory:draw()
         love.graphics.pop()
     end
 end
+
+function Inventory:get(pos)
+    return self.items[pos]
+end

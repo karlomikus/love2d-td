@@ -27,6 +27,7 @@ function Player:new(x, y, opts)
         self.name = self.id
     end
     self.inventory = Inventory()
+    self.current_item = self.inventory:get(2)
 
     -- Turn handling
     self.finished_action = false    -- Has player executed attack
@@ -139,8 +140,7 @@ function Player:update(dt)
         local d = 1.2 * self.barrel.w
         self.p_system:emit(32)
 
-        map:addGameObject('Rocket', self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
-        -- map:addGameObject('Laser', self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
+        map:addGameObject(self.current_item.obj, self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
     end
 
 end
