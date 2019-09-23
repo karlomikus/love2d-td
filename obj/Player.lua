@@ -26,6 +26,7 @@ function Player:new(x, y, opts)
     if not self.name then
         self.name = self.id
     end
+    self.inventory = Inventory()
 
     -- Turn handling
     self.finished_action = false    -- Has player executed attack
@@ -61,6 +62,7 @@ function Player:update(dt)
     local oldX, oldY = self.x, self.y
 
     self.p_system:update(dt)
+    self.inventory:update(dt)
 
     if self.hp <= 0 then
         director:removePlayer(self.id)
@@ -160,4 +162,6 @@ function Player:draw()
     love.graphics.rectangle("fill", 0, 0, self.barrel.w, self.barrel.h)
     love.graphics.setColor(1, 1, 1)
     love.graphics.pop()
+
+    self.inventory:draw()
 end

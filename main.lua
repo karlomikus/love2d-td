@@ -35,6 +35,7 @@ function love.load()
 
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
+    defaultFont = love.graphics.newFont(30)
     mainFont = love.graphics.newFont("res/forcedsquare.ttf", 30)
 
     -- background = love.graphics.newImage("res/bg.jpg")
@@ -54,7 +55,6 @@ function love.load()
 
     map = Map()
     director = Director()
-    inventory = Inventory()
 
     director:addPlayer(100, 300, {color = COLORS["GREEN"], name = "Player 1"})
     director:addPlayer(900, 300, {color = COLORS["RED"], name = "Player 2"})
@@ -66,18 +66,15 @@ function love.update(dt)
     global_timer:update(dt)
     map:update(dt)
     director:update(dt)
-    inventory:update(dt)
 end
 
 function love.draw()
     love.graphics.setBackgroundColor(COLORS["BG"])
-    love.graphics.setFont(mainFont)
 
     effect(function()
         map:draw()
         director:draw()
     end)
-    inventory:draw()
 end
 
 function love.keypressed(key)
