@@ -1,16 +1,21 @@
 Director = Object:extend()
 
 function Director:new()
+    -- Player data
     self.players = {}
     self.current_player = nil
+
+    -- Round options
     self.current_round_seconds = 0
     self.max_round_time = 60
 
+    -- Player indicator, TODO: Move to player/new class
     self.current_player_indicator = {}
     self.current_player_indicator.x = 0
     self.current_player_indicator.y = 0
     self.current_player_indicator.color = {1, 1, 1, 1}
 
+    -- Round timer
     self.round_timer_handler = global_timer:every(1, function ()
         self.current_round_seconds = self.current_round_seconds + 1
     end, self.max_round_time)
@@ -25,8 +30,6 @@ function Director:update(dt)
 
     self.current_player_indicator.x = self.current_player.x
     self.current_player_indicator.y = self.current_player.y
-
-    camera:follow(self.current_player.x, self.current_player.y)
 end
 
 function Director:draw()
@@ -84,17 +87,18 @@ end
 
 function Director:nextPlayer(shot_player)
     if shot_player then
+        -- Reset current player
         shot_player.finished_action = false
 
-        local prev_p_id = shot_player.id
-
+        -- Find index of current player in table
         local next_index = 1
         for k,v in pairs(self.players) do
-            if v.id == prev_p_id then
+            if v.id == shot_player.id then
                 next_index = k + 1
             end
         end
 
+        -- Then increment that index, handling overflow, to get next player
         if next_index > #self.players then
             next_index = 1
         end
@@ -104,8 +108,11 @@ function Director:nextPlayer(shot_player)
         self.current_player = self.players[1]
     end
 
+    -- Reset round timer
     self.current_round_seconds = 0
     Timer.cancel(self.round_timer_handler)
+
+    -- Show current player indicator
     self.current_player_indicator.color = {1, 1, 1, 1}
     Timer.tween(1, self.current_player_indicator, {color = {1, 1, 1, 0}}, 'in-out-quad')
 end

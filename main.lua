@@ -4,7 +4,6 @@ moonshine = require "libs/moonshine"
 Object = require "libs/classic"
 Input = require "libs/Input"
 Timer = require "libs/Timer"
-Camera = require "libs/Camera"
 Bresenham = require "libs/Bresenham"
 
 require "obj/GameObject"
@@ -59,7 +58,6 @@ function love.load()
     bg_music:setLooping(true)
     bg_music:play()
 
-    camera = Camera()
     map = Map()
     director = Director()
     inventory = Inventory()
@@ -72,7 +70,6 @@ end
 
 function love.update(dt)
     global_timer:update(dt)
-    camera:update(dt)
     map:update(dt)
     director:update(dt)
     inventory:update(dt)
