@@ -12,7 +12,6 @@ function GameObject:new(x, y, opts)
     self.y = y
     self.id = UUID()
     self.dead = false
-    self.paused = true
     self.timer = Timer()
 end
 

@@ -20,8 +20,8 @@ function Director:update(dt)
     Timer.update(dt)
 
     for _, p in ipairs(self.players) do
-        if p.has_finished_action then
-            self:nextPlayer(p)
+        if p.finished_action then
+            -- self:nextPlayer(p)
         end
         p:update(dt)
     end
@@ -87,7 +87,7 @@ end
 
 function Director:nextPlayer(shot_player)
     if shot_player then
-        shot_player.has_finished_action = false
+        shot_player.finished_action = false
 
         local prev_p_id = shot_player.id
 

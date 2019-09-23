@@ -34,6 +34,7 @@ function Explosion:update(dt)
         end
     end
 
+    love.event.push('endTurn')
     self.dead = true
 end
 
