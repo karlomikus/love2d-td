@@ -36,7 +36,7 @@ function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
     defaultFont = love.graphics.newFont(30)
-    mainFont = love.graphics.newFont("res/forcedsquare.ttf", 30)
+    mainFont = love.graphics.newFont("res/fonts/m5x7.ttf", 30, "mono")
 
     -- background = love.graphics.newImage("res/bg.jpg")
     effect = moonshine(moonshine.effects.crt).chain(moonshine.effects.chromasep)
@@ -56,9 +56,9 @@ function love.load()
     map = Map()
     director = Director()
 
-    director:addPlayer(100, 300, {color = COLORS["GREEN"], name = "Player 1"})
-    director:addPlayer(900, 300, {color = COLORS["RED"], name = "Player 2"})
-    director:addPlayer(600, 100, {color = COLORS["BLUE"], name = "Player 3"})
+    director:addPlayer(100, 0, {color = COLORS["GREEN"], name = "Player 1"})
+    director:addPlayer(900, 0, {color = COLORS["RED"], name = "Player 2"})
+    director:addPlayer(600, 0, {color = COLORS["BLUE"], name = "Player 3"})
     director:startRound()
 end
 

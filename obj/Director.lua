@@ -61,6 +61,24 @@ function Director:draw()
 end
 
 function Director:addPlayer(x, y, opts)
+    -- Find first safe spawn point
+    for py = gh - 1, 0, -1 do
+        local terrain_safe = false
+        for px = x, x + 32 do
+            local r,g,b,a = map:getPixel(px, py)
+            if a == 0 then
+                terrain_safe = true
+            else
+                terrain_safe = false
+            end
+        end
+
+        if terrain_safe then
+            y = py - 33
+            break
+        end
+    end
+
     local player = Player(x, y, opts)
 
     table.insert(self.players, player)
