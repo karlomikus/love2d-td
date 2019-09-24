@@ -2,7 +2,7 @@ Map = Object:extend()
 
 function Map:new()
     local terrain_top_border_height = 8
-    local terrain_top_border_color = COLORS["ELECTRO_GREEN"]
+    local terrain_top_border_color = {247/255, 0, 157/255}
 
     self:addPhysicsWorld()
     self.game_objects = {}
@@ -11,7 +11,7 @@ function Map:new()
         if r == 0 and b == 0 and g == 1 then
             a = 0
         else
-            r, g, b = unpack(COLORS["SLATE_LIGHT"])
+            r, g, b = 44/255, 0/255, 125/255
         end
 
         return r, g, b, a

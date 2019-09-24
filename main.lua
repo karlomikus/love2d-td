@@ -36,7 +36,10 @@ function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
     defaultFont = love.graphics.newFont(30)
-    mainFont = love.graphics.newFont("res/fonts/m5x7.ttf", 30, "mono")
+
+    fonts = {}
+    fonts.main_sm = love.graphics.newFont("res/fonts/m5x7.ttf", 20, "mono")
+    fonts.main_md = love.graphics.newFont("res/fonts/m5x7.ttf", 30, "mono")
 
     -- background = love.graphics.newImage("res/bg.jpg")
     effect = moonshine(moonshine.effects.crt).chain(moonshine.effects.chromasep)

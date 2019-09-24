@@ -172,6 +172,13 @@ function Player:draw()
     love.graphics.setColor(1, 1, 1)
     love.graphics.pop()
 
+    -- HP
+    love.graphics.setColor(1, 1, 1, 0.6)
+    love.graphics.setFont(fonts.main_sm)
+    love.graphics.print(self.name, self.x - 5, self.y - 30)
+    love.graphics.print(string.format("HP: %s", self.hp), self.x - 5, self.y - 15)
+    love.graphics.setColor(1, 1, 1, 1)
+
     if director.current_player.id == self.id then
         self.inventory:draw()
     end

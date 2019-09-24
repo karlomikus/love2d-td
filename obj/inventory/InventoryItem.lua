@@ -20,5 +20,4 @@ function InventoryItem:draw()
     love.graphics.rectangle("fill", 0, 0, self.w, self.h)
     love.graphics.setColor(1, 1, 1, 1)
     love.graphics.print(string.format("%s\n(%s/%s)", self.name, self.q, self.max), 0, 0)
-    love.graphics.setFont(mainFont)
 end
