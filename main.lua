@@ -5,6 +5,7 @@ Object = require "libs/classic"
 Input = require "libs/Input"
 Timer = require "libs/Timer"
 Bresenham = require "libs/Bresenham"
+camera = require "libs/camera"
 
 COLORS = {
     BG = { hex2rgb("#130038") },
@@ -36,6 +37,8 @@ function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
     defaultFont = love.graphics.newFont(30)
+    camera = camera()
+    camera:zoom(1)
 
     fonts = {}
     fonts.main_sm = love.graphics.newFont("res/fonts/m5x7.ttf", 20, "mono")
@@ -75,8 +78,10 @@ function love.draw()
     love.graphics.setBackgroundColor(COLORS["BG"])
 
     effect(function()
+        camera:attach()
         map:draw()
         director:draw()
+        camera:detach()
     end)
 end
 

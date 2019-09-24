@@ -28,6 +28,8 @@ function Director:update(dt)
         p:update(dt)
     end
 
+    -- camera:lookAt(self.current_player.x, self.current_player.y)
+
     self.current_player_indicator.x = self.current_player.x
     self.current_player_indicator.y = self.current_player.y
 end
