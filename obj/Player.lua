@@ -11,6 +11,7 @@ function Player:new(x, y, opts)
     self.input:bind('a', 'bwd')
     self.input:bind('lshift', 'shift')
     self.input:bind('space', 'shoot')
+    self.input:bind('tab', 'change_weapon')
 
     -- Tank graphics
     self.gfx = love.graphics.newImage("res/tank.png")
@@ -26,8 +27,8 @@ function Player:new(x, y, opts)
     if not self.name then
         self.name = self.id
     end
-    self.inventory = Inventory()
-    self.current_item = self.inventory:get(2)
+    self.inventory = Inventory(self)
+    self.current_item_idx = 1
 
     -- Turn handling
     self.finished_action = false    -- Has player executed attack
@@ -132,17 +133,25 @@ function Player:update(dt)
         end
     end
 
+    -- Change waeapon
+    if self.input:pressed('change_weapon') then
+        local next_weapon_idx = self.current_item_idx + 1
+        if next_weapon_idx > self.inventory:count() then
+            next_weapon_idx = 1
+        end
+        self.current_item_idx = next_weapon_idx
+    end
+
     -- Shoot chosen weapon
-    if self.input:pressed('shoot') and director.current_player.id == self.id then
+    if self.input:pressed('shoot') then
         self.finished_action = true
         projectile_launch_sound:stop()
         projectile_launch_sound:play()
         local d = 1.2 * self.barrel.w
         self.p_system:emit(32)
 
-        map:addGameObject(self.current_item.obj, self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
+        map:addGameObject(self:getCurrentItem().obj, self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
     end
-
 end
 
 function Player:draw()
@@ -163,5 +172,11 @@ function Player:draw()
     love.graphics.setColor(1, 1, 1)
     love.graphics.pop()
 
-    self.inventory:draw()
+    if director.current_player.id == self.id then
+        self.inventory:draw()
+    end
+end
+
+function Player:getCurrentItem()
+    return self.inventory:get(self.current_item_idx)
 end
