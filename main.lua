@@ -5,7 +5,8 @@ Object = require "libs/classic"
 Input = require "libs/Input"
 Timer = require "libs/Timer"
 Bresenham = require "libs/Bresenham"
-camera = require "libs/camera"
+-- camera = require "libs/camera"
+camera = require "libs/SXCamera"
 
 COLORS = {
     BG = { hex2rgb("#130038") },
@@ -38,7 +39,6 @@ function love.load()
 
     defaultFont = love.graphics.newFont(30)
     camera = camera()
-    camera:zoom(1)
 
     fonts = {}
     fonts.main_sm = love.graphics.newFont("res/fonts/m5x7.ttf", 20, "mono")
@@ -69,6 +69,7 @@ function love.load()
 end
 
 function love.update(dt)
+    camera:update(dt)
     global_timer:update(dt)
     map:update(dt)
     director:update(dt)

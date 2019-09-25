@@ -5,6 +5,8 @@ function Explosion:new(x, y, opts)
 
     self.radius = opts.radius or 30
     self.scorched_earth = 4
+
+    camera:shake(5, 0.3, 60)
 end
 
 function Explosion:update(dt)
