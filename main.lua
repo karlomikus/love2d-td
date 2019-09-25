@@ -5,8 +5,8 @@ Object = require "libs/classic"
 Input = require "libs/Input"
 Timer = require "libs/Timer"
 Bresenham = require "libs/Bresenham"
--- camera = require "libs/camera"
 camera = require "libs/SXCamera"
+anim8 = require "libs/anim8"
 
 COLORS = {
     BG = { hex2rgb("#130038") },
@@ -35,35 +35,42 @@ function love.load()
     recursiveEnumerate('obj', object_files)
     requireFiles(object_files)
 
+    -- Modify defaults
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
-    defaultFont = love.graphics.newFont(30)
-    camera = camera()
-
+    -- Font resources
     fonts = {}
     fonts.main_sm = love.graphics.newFont("res/fonts/m5x7.ttf", 20, "mono")
     fonts.main_md = love.graphics.newFont("res/fonts/m5x7.ttf", 30, "mono")
 
-    explosion_texture = love.graphics.newImage("res/ex1.png")
+    -- Texture resources
+    texture = {}
+    texture.explosion = love.graphics.newImage("res/textures/explosion.png")
 
-    -- background = love.graphics.newImage("res/bg.jpg")
+    -- Sound resources
+    sounds = {}
+    sounds.level_music = love.audio.newSource("res/sounds/bg.ogg", "stream")
+    sounds.rocket_start = love.audio.newSource("res/sounds/rocket_start.wav", "static")
+    sounds.explosion = love.audio.newSource("res/sounds/explosion.wav", "static")
+    sounds.tank_hit = love.audio.newSource("res/sounds/impact.ogg", "static")
+
+    love.audio.setVolume(0.1)
+    sounds.level_music:setLooping(true)
+    sounds.level_music:play()
+
+    -- Shaders
     effect = moonshine(moonshine.effects.crt).chain(moonshine.effects.chromasep)
     -- effect.chromasep.angle = math.rad(30)
     -- effect.chromasep.radius = 2
     effect.disable("crt", "chromasep")
 
+    -- Init game objs
     global_timer = Timer()
-
-    love.audio.setVolume(0.1)
-    impact_sound = love.audio.newSource("res/sounds/impact.ogg", "static")
-    projectile_launch_sound = love.audio.newSource("res/sounds/projectile_launch.wav", "static")
-    bg_music = love.audio.newSource("res/sounds/bg.ogg", "stream")
-    bg_music:setLooping(true)
-    bg_music:play()
-
+    camera = camera()
     map = Map()
     director = Director()
 
+    -- Add players
     director:addPlayer(100, 0, {color = COLORS["GREEN"], name = "Player 1"})
     director:addPlayer(900, 0, {color = COLORS["RED"], name = "Player 2"})
     director:addPlayer(600, 0, {color = COLORS["BLUE"], name = "Player 3"})

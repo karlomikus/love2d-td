@@ -145,8 +145,8 @@ function Player:update(dt)
     -- Shoot chosen weapon
     if self.input:pressed('shoot') then
         self.finished_action = true
-        projectile_launch_sound:stop()
-        projectile_launch_sound:play()
+        sounds.rocket_start:stop()
+        sounds.rocket_start:play()
         local d = 1.2 * self.barrel.w
         self.p_system:emit(32)
 
