@@ -4,6 +4,8 @@ function Map:new()
     local terrain_top_border_height = 8
     local terrain_top_border_color = {247/255, 0, 157/255}
 
+    self.coll_checks = 0
+
     self:addPhysicsWorld()
     self.game_objects = {}
     self.map_image_data = love.image.newImageData("res/map.bmp")
@@ -63,6 +65,7 @@ function Map:draw()
     love.graphics.setColor(1, 1, 1)
 
     love.graphics.draw(self.map)
+    love.graphics.print("Coll checks: " .. self.coll_checks, 10, 30)
 
     for _, game_object in ipairs(self.game_objects) do
         game_object:draw(dt)
@@ -88,6 +91,8 @@ function Map:collided(hx, hy, hw, hh)
     if hx + hw > self.map_image_data:getWidth() or hx < 0 or hy + hh > self.map_image_data:getHeight() or hy < 0 then
         return true
     end
+
+    self.coll_checks = self.coll_checks + 1
 
     for cx = hx, hx + hw, 1 do
         for cy = hy, hy + hh, 1 do

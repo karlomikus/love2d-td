@@ -99,4 +99,13 @@ function love.keypressed(key)
     if key == "escape" then
         love.event.quit()
     end
+    if key == "f1" then
+        print("Before collection: " .. collectgarbage("count")/1024)
+        collectgarbage()
+        print("After collection: " .. collectgarbage("count")/1024)
+        print("Object count: ")
+        local counts = type_count()
+        for k, v in pairs(counts) do print(k, v) end
+        print("-------------------------------------")
+    end
 end
