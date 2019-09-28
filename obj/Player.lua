@@ -19,8 +19,10 @@ function Player:new(x, y, opts)
     self.h = 32
 
     -- Gameplay stuff
-    self.hp = 200           -- Health points
-    self.mp = 750           -- Move points
+    self.max_hp = 200       -- Health points
+    self.hp = self.max_hp   -- Current health points
+    self.max_mp = 750       -- Move points
+    self.mp = self.max_mp   -- Current move points
     self.speed = 50         -- Move speed
     self.gravity = -1200    -- Tank y gravity
     self.vy = 0             -- Tank y velocity
@@ -29,6 +31,8 @@ function Player:new(x, y, opts)
     end
     self.inventory = Inventory(self)
     self.current_item_idx = 1
+    self.bar_w = 60
+    self.bar_h = 3
 
     -- Turn handling
     self.finished_action = false    -- Has player executed attack
@@ -178,7 +182,15 @@ function Player:draw()
     love.graphics.setColor(1, 1, 1, 0.6)
     love.graphics.setFont(fonts.main_sm)
     love.graphics.print(self.name, self.x - 5, self.y - 30)
-    love.graphics.print(string.format("HP: %s", self.hp), self.x - 5, self.y - 15)
+    -- love.graphics.print(string.format("HP: %s", self.hp), self.x - 5, self.y - 15)
+    love.graphics.setColor(206/255, 242/255, 0, 0.6)
+    love.graphics.rectangle("fill", self.x - 5, self.y - 10, self.bar_w * (self.hp / self.max_hp), self.bar_h)
+    love.graphics.rectangle("line", self.x - 6, self.y - 10, self.bar_w, self.bar_h)
+    love.graphics.setColor(1, 1, 1, 1)
+    -- MP
+    love.graphics.setColor(0, 214/255, 242/255, 0.6)
+    love.graphics.rectangle("fill", self.x - 5, self.y - 5, self.bar_w * (self.mp / self.max_mp), self.bar_h)
+    love.graphics.rectangle("line", self.x - 6, self.y - 5, self.bar_w, self.bar_h)
     love.graphics.setColor(1, 1, 1, 1)
 
     if director.current_player.id == self.id then
