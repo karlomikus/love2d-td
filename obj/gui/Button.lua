@@ -6,13 +6,24 @@ function Button:new(text, x, y, w, h)
     self.w = w or 100
     self.h = h or 20
     self.text = love.graphics.newText(fonts.main_md, text)
+
+    self.is_hover = false
 end
 
 function Button:update(dt)
+    if love.mouse.getX() >= self.x and love.mouse.getX() <= self.x + self.w and love.mouse.getY() >= self.y and love.mouse.getY() <= self.y + self.h then
+        self.is_hover = true
+    else
+        self.is_hover = false
+    end
 end
 
 function Button:draw()
-    love.graphics.setColor(0, 0, 0, 1)
+    if self.is_hover then
+        love.graphics.setColor(247/255, 0, 157/255, 1)
+    else
+        love.graphics.setColor(0, 0, 0, 1)
+    end
     love.graphics.rectangle("fill", self.x, self.y, self.w, self.h)
     love.graphics.setColor(247/255, 0, 157/255, 1)
     love.graphics.rectangle("line", self.x, self.y, self.w, self.h)

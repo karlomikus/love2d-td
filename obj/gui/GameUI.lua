@@ -20,6 +20,10 @@ function GameUI:new(player)
 end
 
 function GameUI:update(dt)
+    for _,b in pairs(self.buttons) do
+        b:update(dt)
+    end
+
     if director.current_player.barrel.angle < 0 then
         self.buttons.angle_print.text:set(string.format("%s°", math.floor(director.current_player.barrel.angle) * -1))
     end
