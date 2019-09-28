@@ -9,8 +9,8 @@ function Inventory:new(player)
     self.y = gh - self.height - self.offset_bottom
 
     self.items = {}
-    table.insert(self.items, InventoryItem("Rocket", "Rocket\nlauncher", 10, 10))
-    table.insert(self.items, InventoryItem("Laser", "Laser\nBeam", 1, 1))
+    table.insert(self.items, InventoryItem("Rocket", "Rocket", 10, 10))
+    table.insert(self.items, InventoryItem("Laser", "Laser beam", 1, 1))
     -- table.insert(self.items, InventoryItem("Grenade", "Grenade", 2, 3))
     -- table.insert(self.items, InventoryItem("Mole", "Mole\nRocket", 1, 1))
     -- table.insert(self.items, InventoryItem("Acid", "Acid\nSpray", 0, 1))

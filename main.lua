@@ -69,6 +69,7 @@ function love.load()
     camera = camera()
     map = Map()
     director = Director()
+    gameUI = GameUI()
 
     -- Add players
     director:addPlayer(100, 0, {color = COLORS["GREEN"], name = "Player 1"})
@@ -82,6 +83,7 @@ function love.update(dt)
     global_timer:update(dt)
     map:update(dt)
     director:update(dt)
+    gameUI:update(dt)
 end
 
 function love.draw()
@@ -91,6 +93,7 @@ function love.draw()
         camera:attach()
         map:draw()
         director:draw()
+        gameUI:draw()
         camera:detach()
     end)
 end

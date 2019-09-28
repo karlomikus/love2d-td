@@ -15,6 +15,8 @@ function Explosion:new(x, y, opts)
     end)
 
     camera:shake(5, 0.3, 60)
+
+    -- map:addGameObject('MapDebris', self.x, self.y)
 end
 
 function Explosion:update(dt)

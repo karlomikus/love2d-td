@@ -19,7 +19,7 @@ function Player:new(x, y, opts)
     self.h = 32
 
     -- Gameplay stuff
-    self.hp = 100           -- Health points
+    self.hp = 200           -- Health points
     self.mp = 750           -- Move points
     self.speed = 50         -- Move speed
     self.gravity = -1200    -- Tank y gravity
@@ -56,6 +56,8 @@ function Player:new(x, y, opts)
     self.barrel.x = self.x
     self.barrel.y = self.y
     self.barrel.angle = 0
+    self.barrel.max_angle = 180
+    self.barrel.min_angle = 0
 end
 
 function Player:update(dt)
@@ -94,7 +96,7 @@ function Player:update(dt)
     end
 
     -- Move barrel up
-    if self.input:down('inc_barrel_angle') and self.barrel.angle > -180 then
+    if self.input:down('inc_barrel_angle') and self.barrel.angle > self.barrel.max_angle * -1 then
         if (self.input:down('shift')) then
             self.barrel.angle = self.barrel.angle - 150 * dt
         else
@@ -103,7 +105,7 @@ function Player:update(dt)
     end
 
     -- Move barrel down
-    if self.input:down('dec_barrel_angle') and self.barrel.angle < 0 then
+    if self.input:down('dec_barrel_angle') and self.barrel.angle < self.barrel.min_angle then
         if (self.input:down('shift')) then
             self.barrel.angle = self.barrel.angle + 150 * dt
         else
@@ -180,7 +182,7 @@ function Player:draw()
     love.graphics.setColor(1, 1, 1, 1)
 
     if director.current_player.id == self.id then
-        self.inventory:draw()
+        -- self.inventory:draw()
     end
 end
 
