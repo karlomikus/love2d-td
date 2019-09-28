@@ -101,20 +101,20 @@ function Player:update(dt)
     end
 
     -- Move barrel up
-    if self.input:down('inc_barrel_angle') and self.barrel.angle > self.barrel.max_angle * -1 then
+    if self.input:down('inc_barrel_angle') then
         if (self.input:down('shift')) then
-            self.barrel.angle = self.barrel.angle - 150 * dt
+            self:incrementAngleBy(150, dt)
         else
-            self.barrel.angle = self.barrel.angle - 50 * dt
+            self:incrementAngleBy(20, dt)
         end
     end
 
     -- Move barrel down
-    if self.input:down('dec_barrel_angle') and self.barrel.angle < self.barrel.min_angle then
+    if self.input:down('dec_barrel_angle') then
         if (self.input:down('shift')) then
-            self.barrel.angle = self.barrel.angle + 150 * dt
+            self:decrementAngleBy(150, dt)
         else
-            self.barrel.angle = self.barrel.angle + 20 * dt
+            self:decrementAngleBy(20, dt)
         end
     end
 
@@ -151,13 +151,7 @@ function Player:update(dt)
 
     -- Shoot chosen weapon
     if self.input:pressed('shoot') then
-        self.finished_action = true
-        sounds.rocket_start:stop()
-        sounds.rocket_start:play()
-        local d = 1.2 * self.barrel.w
-        self.p_system:emit(32)
-
-        map:addGameObject(self:getCurrentItem().obj, self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
+        self:shoot()
     end
 end
 
@@ -201,6 +195,28 @@ end
 
 function Player:getCurrentItem()
     return self.inventory:get(self.current_item_idx)
+end
+
+function Player:incrementAngleBy(angle, dt)
+    if self.barrel.angle > self.barrel.max_angle * -1 then
+        self.barrel.angle = self.barrel.angle - angle * dt
+    end
+end
+
+function Player:decrementAngleBy(angle, dt)
+    if self.barrel.angle < self.barrel.min_angle then
+        self.barrel.angle = self.barrel.angle + angle * dt
+    end
+end
+
+function Player:shoot()
+    self.finished_action = true
+    sounds.rocket_start:stop()
+    sounds.rocket_start:play()
+    local d = 1.2 * self.barrel.w
+    self.p_system:emit(32)
+
+    map:addGameObject(self:getCurrentItem().obj, self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
 end
 
 function Player:onDamageTaken(dmgSource)

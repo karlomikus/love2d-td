@@ -59,10 +59,11 @@ function love.load()
     sounds.level_music:play()
 
     -- Shaders
-    effect = moonshine(moonshine.effects.crt).chain(moonshine.effects.chromasep)
+    effect = moonshine(moonshine.effects.crt).chain(moonshine.effects.chromasep).chain(moonshine.effects.scanlines)
     -- effect.chromasep.angle = math.rad(30)
-    -- effect.chromasep.radius = 2
-    effect.disable("crt", "chromasep")
+    -- effect.chromasep.radius = 1
+    -- effect.scanlines.opacity = 0.2
+    effect.disable("crt", "chromasep", "scanlines")
 
     -- Init game objs
     global_timer = Timer()
