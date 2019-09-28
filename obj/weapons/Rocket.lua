@@ -21,10 +21,13 @@ end
 function Rocket:update(dt)
     Rocket.super.update(self, dt)
 
+    self.x = self.body:getX()
+    self.y = self.body:getY()
+
     for _, p in ipairs(director.players) do
         if (self.body:getX() >= p.hitbox.x and self.body:getX() <= p.hitbox.x + p.hitbox.w) and (self.body:getY() >= p.hitbox.y and self.body:getY() <= p.hitbox.y + p.hitbox.h) then
             self:onHit(self.body:getX(), self.body:getY())
-            p.hp = p.hp - self.dmg
+            p:onDamageTaken(self)
             return
         end
     end
@@ -48,7 +51,5 @@ function Rocket:onHit(x, y)
     map:addGameObject('Explosion', x, y, {dmg = self.dmg})
     sounds.explosion:stop()
     sounds.explosion:play()
-    -- sounds.tank_hit:stop()
-    -- sounds.tank_hit:play()
     self.dead = true
 end

@@ -13,6 +13,9 @@ function GameObject:new(x, y, opts)
     self.id = UUID()
     self.dead = false
     self.timer = Timer()
+
+    self.creation_time = love.timer.getTime()
+    self.depth = 50
 end
 
 function GameObject:update(dt)

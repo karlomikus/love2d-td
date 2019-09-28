@@ -17,6 +17,7 @@ function Player:new(x, y, opts)
     self.gfx = love.graphics.newImage("res/tank.png")
     self.w = 32
     self.h = 32
+    self.depth = 40
 
     -- Gameplay stuff
     self.max_hp = 200       -- Health points
@@ -119,8 +120,8 @@ function Player:update(dt)
 
     -- Move tank forward
     if self.input:down('fwd') and self.mp > 0 then
-        self.mp = math.floor(self.mp - 10 * dt)
         if not map:collided(self.x + self.hitbox.w, self.y, 1, self.hitbox.h - self.hitbox.damping) then
+            self.mp = math.floor(self.mp - 10 * dt)
             self.x = self.x + (self.speed * dt)
             if map:collided(self.x, self.y + self.hitbox.h - self.hitbox.damping, self.hitbox.w, 1) then
                 self.y = self.y - 1
@@ -130,8 +131,8 @@ function Player:update(dt)
 
     -- Move tank backward
     if self.input:down('bwd') and self.mp > 0 then
-        self.mp = math.floor(self.mp - 10 * dt)
         if not map:collided(self.x - 1, self.y, 1, self.hitbox.h - self.hitbox.damping) then
+            self.mp = math.floor(self.mp - 10 * dt)
             self.x = self.x - (self.speed * dt)
             if map:collided(self.x, self.y + self.hitbox.h - self.hitbox.damping, self.hitbox.w, 1) then
                 self.y = self.y - 1
@@ -200,4 +201,13 @@ end
 
 function Player:getCurrentItem()
     return self.inventory:get(self.current_item_idx)
+end
+
+function Player:onDamageTaken(dmgSource)
+    self.hp = self.hp - dmgSource.dmg
+
+    map:addGameObject('TargetHit', dmgSource.x, dmgSource.y)
+
+    sounds.tank_hit:stop()
+    sounds.tank_hit:play()
 end
