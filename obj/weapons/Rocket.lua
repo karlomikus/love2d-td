@@ -29,7 +29,7 @@ function Rocket:update(dt)
         end
     end
 
-    if map:collided(self.body:getX(), self.body:getY(), 5, 5) then
+    if map:collided(self.body:getX(), self.body:getY(), 5, 5, true) then
         self:onHit(self.body:getX(), self.body:getY())
     end
 end

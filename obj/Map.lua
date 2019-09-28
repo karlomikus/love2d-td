@@ -84,12 +84,22 @@ function Map:addPhysicsWorld()
     self.world = love.physics.newWorld(0, 9.81 * 32, true)
 end
 
-function Map:collided(hx, hy, hw, hh)
-    -- Check top, and sides
+function Map:collided(hx, hy, hw, hh, check_bounds)
+    local check_bounds = check_bounds or false
 
-    -- Check bottom
-    if hx + hw > self.map_image_data:getWidth() or hx < 0 or hy + hh > self.map_image_data:getHeight() or hy < 0 then
-        return true
+    if check_bounds then
+        -- Check bottom
+        if hy + hh >= self.map_image_data:getHeight() then
+            return true
+        end
+        -- Check top, and sides
+        if hx + hw > self.map_image_data:getWidth() or hx < 0 or hy < 0 then
+            return false
+        end
+    else
+        if hx + hw > self.map_image_data:getWidth() or hx < 0 or hy + hh > self.map_image_data:getHeight() or hy < 0 then
+            return true
+        end
     end
 
     self.coll_checks = self.coll_checks + 1

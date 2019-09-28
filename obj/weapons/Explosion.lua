@@ -4,13 +4,12 @@ function Explosion:new(x, y, opts)
     Explosion.super.new(self, x, y, opts)
 
     self.radius = opts.radius or 33
-    self.scorched_earth = 4
-    self.dead_delay = 0.04
+    self.scorched_earth = self.radius + 5
 
     local g = anim8.newGrid(33, 33, texture.explosion:getWidth(), texture.explosion:getHeight())
-    self.animation = anim8.newAnimation(g('1-7',1), 0.04)
+    self.animation = anim8.newAnimation(g('1-7',1), 0.03)
 
-    self.timer:after(0.04 * 7, function ()
+    self.timer:after(0.03 * 7, function ()
         love.event.push('endTurn')
         self.dead = true
     end)
@@ -33,10 +32,9 @@ function Explosion:update(dt)
         end
     end
 
-    local s_radius = self.radius + self.scorched_earth
-    for y = -s_radius, s_radius, 1 do
-        for x = -s_radius, s_radius, 1 do
-            if x*x+y*y <= s_radius * s_radius then
+    for y = -self.scorched_earth, self.scorched_earth, 1 do
+        for x = -self.scorched_earth, self.scorched_earth, 1 do
+            if x*x+y*y <= self.scorched_earth * self.scorched_earth then
                 if self.x + x < map.map_image_data:getWidth() and self.y + y < map.map_image_data:getHeight() and self.x + x > 0 and self.y + y > 0 then
                     local r, g, b, a = map.map_image_data:getPixel(self.x + x, self.y + y)
                     if a > 0 then
@@ -49,7 +47,7 @@ function Explosion:update(dt)
 end
 
 function Explosion:draw()
-    self.animation:draw(texture.explosion, self.x + 33, self.y - 33, 2, 2)
+    self.animation:draw(texture.explosion, self.x + 40, self.y - 20, 2, 2)
 end
 
 function Explosion:destroy()
