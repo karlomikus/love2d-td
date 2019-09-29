@@ -4,17 +4,20 @@ function Map:new()
     local terrain_top_border_height = 8
     local terrain_top_border_color = {247/255, 0, 157/255}
 
+    -- Init
+    love.physics.setMeter(32)
     self.coll_checks = 0
+    self.world = love.physics.newWorld(0, 9.81 * 32, true)
+    self.game_objects = {}
 
+    -- Camera controls
     self.timer = Timer()
-
     self.input = Input()
     self.input:bind('mouse3', 'move_camera')
     self.input:bind('wheelup', 'zoom_in')
     self.input:bind('wheeldown', 'zoom_out')
 
-    self:addPhysicsWorld()
-    self.game_objects = {}
+    -- Render map
     self.map_image_data = love.image.newImageData("res/map.bmp")
     self.map_image_data:mapPixel(function (x, y, r, g, b, a)
         if r == 0 and b == 0 and g == 1 then
@@ -43,11 +46,8 @@ function Map:new()
 end
 
 function Map:update(dt)
-    if self.world then
-        self.world:update(dt)
-    end
-
     self.timer:update(dt)
+    self.world:update(dt)
 
     for i = #self.game_objects, 1, -1 do
         local game_object = self.game_objects[i]
@@ -58,6 +58,7 @@ function Map:update(dt)
         end
     end
 
+    -- TODO: Check if needs updating
     self.map = love.graphics.newImage(self.map_image_data)
 
     if self.input:down('move_camera') then
@@ -65,7 +66,6 @@ function Map:update(dt)
         local dx, dy = mx - self.previous_mx, my - self.previous_my
         camera:move(-dx, -dy)
     end
-    self.previous_mx, self.previous_my = camera:getMousePosition(sx, sy, 0, 0, sx*gw, sy*gh)
 
     if self.input:pressed('zoom_in') then
         self.timer:tween(0.1, camera, {scale = camera.scale + 0.2}, 'in-out-cubic')
@@ -74,28 +74,31 @@ function Map:update(dt)
     if self.input:pressed('zoom_out') then
         self.timer:tween(0.1, camera, {scale = camera.scale - 0.2}, 'in-out-cubic')
     end
+
+    self.previous_mx, self.previous_my = camera:getMousePosition(sx, sy, 0, 0, sx*gw, sy*gh)
 end
 
 function Map:draw()
-    -- sun
-    -- love.graphics.setColor(unpack(COLORS["YELLOW"]))
-    -- love.graphics.circle("fill", gw/2, gh/2, 200)
-    -- love.graphics.setColor(1, 1, 1)
-
+    -- Map bg
     love.graphics.setColor(15/255, 2/255, 43/255)
     love.graphics.rectangle("fill", 0, gh/2 + 100, gw, gh)
     love.graphics.setColor(50/255, 18/255, 114/255)
     love.graphics.rectangle("fill", 0, gh/2 + 100, gw, 5)
     love.graphics.setColor(1, 1, 1)
 
+    -- Actual map
     love.graphics.draw(self.map)
+
+    -- Debug
     love.graphics.print("Coll checks: " .. self.coll_checks, 10, 30)
 
+    -- Sort map objects by depth
     table.sort(self.game_objects, function(a, b)
         if a.depth == b.depth then return a.creation_time < b.creation_time
         else return a.depth < b.depth end
     end)
 
+    -- Draw map objects
     for _, game_object in ipairs(self.game_objects) do
         game_object:draw(dt)
     end
@@ -106,11 +109,6 @@ function Map:addGameObject(game_object_type, x, y, opts)
     local game_object = _G[game_object_type](x or 0, y or 0, opts)
     table.insert(self.game_objects, game_object)
     return game_object
-end
-
-function Map:addPhysicsWorld()
-    love.physics.setMeter(32)
-    self.world = love.physics.newWorld(0, 9.81 * 32, true)
 end
 
 function Map:collided(hx, hy, hw, hh, check_bounds)

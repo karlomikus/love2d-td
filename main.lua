@@ -35,6 +35,10 @@ function love.load()
     recursiveEnumerate('obj', object_files)
     requireFiles(object_files)
 
+    -- Canvases
+    game_canvas = love.graphics.newCanvas()
+    map_canvas = love.graphics.newCanvas()
+
     -- Modify defaults
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
@@ -94,8 +98,8 @@ function love.draw()
         camera:attach()
         map:draw()
         director:draw()
-        gameUI:draw()
         camera:detach()
+        gameUI:draw()
     end)
 end
 

@@ -40,21 +40,6 @@ function Director:draw()
         p:draw()
     end
 
-    -- local i = 15
-    -- local t = nil
-    -- for _, player in ipairs(self.players) do
-    --     if player.id == self.current_player.id then
-    --         t = "<-"
-    --     else
-    --         t = ""
-    --     end
-
-    --     love.graphics.setColor(player.color)
-    --     love.graphics.print(string.format("%s [hp: %s] [mp: %s] %s", player.name, player.hp, player.mp, t), 20, 10 + i)
-    --     love.graphics.setColor(1, 1, 1)
-    --     i = i + 40
-    -- end
-
     if self.current_player then
         love.graphics.setColor(self.current_player_indicator.color)
         love.graphics.circle("line", self.current_player_indicator.x + self.current_player.w / 2, self.current_player_indicator.y + self.current_player.h / 2, 40)
