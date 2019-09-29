@@ -16,7 +16,9 @@ function Explosion:new(x, y, opts)
 
     camera:shake(5, 0.3, 60)
 
-    -- map:addGameObject('MapDebris', self.x, self.y)
+    for i = 1, love.math.random(4, 8) do
+        map:addGameObject('MapDebris', self.x, self.y)
+    end
 end
 
 function Explosion:update(dt)
