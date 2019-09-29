@@ -6,6 +6,9 @@ function Map:new()
 
     self.coll_checks = 0
 
+    self.input = Input()
+    self.input:bind('mouse3', 'move_camera')
+
     self:addPhysicsWorld()
     self.game_objects = {}
     self.map_image_data = love.image.newImageData("res/map.bmp")
@@ -50,6 +53,14 @@ function Map:update(dt)
     end
 
     self.map = love.graphics.newImage(self.map_image_data)
+
+    if self.input:down('move_camera') then
+        local mx, my = camera:getMousePosition(sx, sy, 0, 0, sx*gw, sy*gh)
+        local dx, dy = mx - self.previous_mx, my - self.previous_my
+        camera:move(-dx, -dy)
+    end
+
+    self.previous_mx, self.previous_my = camera:getMousePosition(sx, sy, 0, 0, sx*gw, sy*gh)
 end
 
 function Map:draw()
