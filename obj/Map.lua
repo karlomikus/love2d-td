@@ -90,7 +90,7 @@ function Map:draw()
     love.graphics.draw(self.map)
 
     -- Debug
-    love.graphics.print("Coll checks: " .. self.coll_checks, 10, 30)
+    -- love.graphics.print("Coll checks: " .. self.coll_checks, 10, 30)
 
     -- Sort map objects by depth
     table.sort(self.game_objects, function(a, b)

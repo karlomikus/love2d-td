@@ -18,6 +18,14 @@ function GameUI:new(player)
 
     self.buttons.shop = Button("Buy ($0)", self.x + 750, self.y + (self.h - 40) / 2, 250, 40)
 
+    self.buttons.prev_weapon:setAction(function()
+        director.current_player:prevWeapon()
+    end)
+
+    self.buttons.next_weapon:setAction(function()
+        director.current_player:nextWeapon()
+    end)
+
     self.buttons.shoot_button:setAction(function()
         director.current_player:shoot()
     end)
@@ -40,7 +48,7 @@ function GameUI:update(dt)
         self.buttons.angle_print.text:set(string.format("%s°", math.floor(director.current_player.barrel.angle) * -1))
     end
 
-    self.buttons.shop.text:set(string.format("Buy ($%s)", 3200))
+    self.buttons.shop.text:set(string.format("Buy ($%s)", director.current_player.money))
 
     if director.current_player:getCurrentItem() then
         self.buttons.curr_weapon.text:set(
@@ -58,6 +66,12 @@ function GameUI:draw()
     love.graphics.setColor(0, 0, 0, 0.5)
     love.graphics.rectangle("fill", self.x, self.y, gw, self.h)
     love.graphics.setColor(1, 1, 1, 1)
+
+    love.graphics.setFont(fonts.main_md)
+    love.graphics.setColor(252/255, 203/255, 78/255, 1)
+    love.graphics.print("Round " .. director.round.count, 10, 10)
+    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.print("Time left: " .. director.round.time_left .. "s", 10, 35)
 
     for _,b in pairs(self.buttons) do
         b:draw()

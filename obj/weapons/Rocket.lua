@@ -15,6 +15,9 @@ function Rocket:new(x, y, opts)
     self.body:setMass(0.03)
     self.body:setLinearVelocity(self.velocity * math.cos(self.rot), self.velocity * math.sin(self.rot))
 
+    sounds.rocket_start:stop()
+    sounds.rocket_start:play()
+
     self.timer:every(0.01, function() map:addGameObject('RocketTrail', self.body:getX(), self.body:getY()) end)
 end
 

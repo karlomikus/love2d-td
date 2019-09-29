@@ -11,10 +11,10 @@ function Inventory:new(player)
     self.items = {}
     table.insert(self.items, InventoryItem("Rocket", "Rocket", 10, 10))
     table.insert(self.items, InventoryItem("Laser", "Laser beam", 1, 1))
-    -- table.insert(self.items, InventoryItem("Grenade", "Grenade", 2, 3))
-    -- table.insert(self.items, InventoryItem("Mole", "Mole\nRocket", 1, 1))
-    -- table.insert(self.items, InventoryItem("Acid", "Acid\nSpray", 0, 1))
-    -- table.insert(self.items, InventoryItem("Dirt", "Dirt\nBomb", 1, 2))
+    table.insert(self.items, InventoryItem("Grenade", "Grenade", 2, 3))
+    table.insert(self.items, InventoryItem("Mole", "Mole Rocket", 1, 1))
+    table.insert(self.items, InventoryItem("Acid", "Acid Spray", 0, 1))
+    table.insert(self.items, InventoryItem("Dirt", "Dirt Bomb", 1, 2))
 end
 
 function Inventory:update(dt)

@@ -34,6 +34,7 @@ function Player:new(x, y, opts)
     self.current_item_idx = 1
     self.bar_w = 60
     self.bar_h = 3
+    self.money = 100
 
     -- Turn handling
     self.finished_action = false    -- Has player executed attack
@@ -142,11 +143,7 @@ function Player:update(dt)
 
     -- Change waeapon
     if self.input:pressed('change_weapon') then
-        local next_weapon_idx = self.current_item_idx + 1
-        if next_weapon_idx > self.inventory:count() then
-            next_weapon_idx = 1
-        end
-        self.current_item_idx = next_weapon_idx
+        self:nextWeapon()
     end
 
     -- Shoot chosen weapon
@@ -211,12 +208,16 @@ end
 
 function Player:shoot()
     self.finished_action = true
-    sounds.rocket_start:stop()
-    sounds.rocket_start:play()
-    local d = 1.2 * self.barrel.w
-    self.p_system:emit(32)
 
-    map:addGameObject(self:getCurrentItem().obj, self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
+    if self:getCurrentItem().q > 0 then
+        local d = 1.2 * self.barrel.w
+        self.p_system:emit(32)
+
+        map:addGameObject(self:getCurrentItem().obj, self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
+        self:getCurrentItem().q = self:getCurrentItem().q - 1
+    else
+        love.event.push('endTurn')
+    end
 end
 
 function Player:onDamageTaken(dmgSource)
@@ -226,4 +227,20 @@ function Player:onDamageTaken(dmgSource)
 
     sounds.tank_hit:stop()
     sounds.tank_hit:play()
+end
+
+function Player:nextWeapon()
+    local next_weapon_idx = self.current_item_idx + 1
+    if next_weapon_idx > self.inventory:count() then
+        next_weapon_idx = 1
+    end
+    self.current_item_idx = next_weapon_idx
+end
+
+function Player:prevWeapon()
+    local prev_weapon_idx = self.current_item_idx - 1
+    if prev_weapon_idx <= 0 then
+        prev_weapon_idx = self.inventory:count()
+    end
+    self.current_item_idx = prev_weapon_idx
 end

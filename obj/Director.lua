@@ -6,8 +6,11 @@ function Director:new()
     self.current_player = nil
 
     -- Round options
-    self.current_round_seconds = 0
-    self.max_round_time = 60
+    self.timer = Timer()
+    self.round = {}
+    self.round.count = 1
+    self.round.time_max = 60
+    self.round.time_left = self.round.time_max
 
     -- Player indicator, TODO: Move to player/new class
     self.current_player_indicator = {}
@@ -16,26 +19,23 @@ function Director:new()
     self.current_player_indicator.color = {1, 1, 1, 1}
 
     -- Round timer
-    self.round_timer_handler = global_timer:every(1, function ()
-        self.current_round_seconds = self.current_round_seconds + 1
-    end, self.max_round_time)
+    self.round_timer_handler = self.timer:every(1, function ()
+        self.round.time_left = self.round.time_left - 1
+    end)
 end
 
 function Director:update(dt)
-    Timer.update(dt)
+    self.timer:update(dt)
 
     for _, p in ipairs(self.players) do
         p:update(dt)
     end
-
-    -- camera:lookAt(self.current_player.x, self.current_player.y)
 
     self.current_player_indicator.x = self.current_player.x
     self.current_player_indicator.y = self.current_player.y
 end
 
 function Director:draw()
-    love.graphics.print("Round timer: " .. self.current_round_seconds .. "s", 10, 10)
     for k,p in ipairs(self.players) do
         p:draw()
     end
@@ -106,6 +106,7 @@ function Director:nextPlayer(shot_player)
         -- Then increment that index, handling overflow, to get next player
         if next_index > #self.players then
             next_index = 1
+            self.round.count = self.round.count + 1
         end
 
         self.current_player = self.players[next_index]
@@ -114,12 +115,12 @@ function Director:nextPlayer(shot_player)
     end
 
     -- Reset round timer
-    self.current_round_seconds = 0
-    Timer.cancel(self.round_timer_handler)
+    self.round.time_left = self.round.time_max
+    -- self.timer:cancel(self.round_timer_handler)
 
     -- Show current player indicator
     self.current_player_indicator.color = {1, 1, 1, 1}
-    Timer.tween(1, self.current_player_indicator, {color = {1, 1, 1, 0}}, 'in-out-quad')
+    self.timer:tween(1, self.current_player_indicator, {color = {1, 1, 1, 0}}, 'in-out-quad')
 end
 
 function love.handlers.endTurn()

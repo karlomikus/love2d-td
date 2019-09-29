@@ -70,7 +70,6 @@ function love.load()
     effect.disable("crt", "chromasep", "scanlines")
 
     -- Init game objs
-    global_timer = Timer()
     camera = camera()
     map = Map()
     director = Director()
@@ -85,7 +84,6 @@ end
 
 function love.update(dt)
     camera:update(dt)
-    global_timer:update(dt)
     map:update(dt)
     director:update(dt)
     gameUI:update(dt)
