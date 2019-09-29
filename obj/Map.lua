@@ -6,8 +6,12 @@ function Map:new()
 
     self.coll_checks = 0
 
+    self.timer = Timer()
+
     self.input = Input()
     self.input:bind('mouse3', 'move_camera')
+    self.input:bind('wheelup', 'zoom_in')
+    self.input:bind('wheeldown', 'zoom_out')
 
     self:addPhysicsWorld()
     self.game_objects = {}
@@ -43,6 +47,8 @@ function Map:update(dt)
         self.world:update(dt)
     end
 
+    self.timer:update(dt)
+
     for i = #self.game_objects, 1, -1 do
         local game_object = self.game_objects[i]
         game_object:update(dt)
@@ -59,8 +65,15 @@ function Map:update(dt)
         local dx, dy = mx - self.previous_mx, my - self.previous_my
         camera:move(-dx, -dy)
     end
-
     self.previous_mx, self.previous_my = camera:getMousePosition(sx, sy, 0, 0, sx*gw, sy*gh)
+
+    if self.input:pressed('zoom_in') then
+        self.timer:tween(0.1, camera, {scale = camera.scale + 0.2}, 'in-out-cubic')
+    end
+
+    if self.input:pressed('zoom_out') then
+        self.timer:tween(0.1, camera, {scale = camera.scale - 0.2}, 'in-out-cubic')
+    end
 end
 
 function Map:draw()
