@@ -9,12 +9,10 @@ function Inventory:new(player)
     self.y = gh - self.height - self.offset_bottom
 
     self.items = {}
+
+    -- Default inv, todo: move to player
     table.insert(self.items, InventoryItem("Rocket", "Rocket", 10, 10))
     table.insert(self.items, InventoryItem("Laser", "Laser beam", 1, 1))
-    table.insert(self.items, InventoryItem("Grenade", "Grenade", 2, 3))
-    table.insert(self.items, InventoryItem("Mole", "Mole Rocket", 1, 1))
-    table.insert(self.items, InventoryItem("Acid", "Acid Spray", 0, 1))
-    table.insert(self.items, InventoryItem("Dirt", "Dirt Bomb", 1, 2))
 end
 
 function Inventory:update(dt)

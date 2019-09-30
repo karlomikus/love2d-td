@@ -47,15 +47,7 @@ function Button:draw()
     love.graphics.rectangle("line", self.x, self.y, self.w, self.h)
     love.graphics.setColor(1, 1, 1, 1)
 
-    if self.align == "center" then
-        self.text_x = self.x + (self.w - self.text:getWidth()) / 2
-        self.text_y = self.y + (self.h - self.text:getHeight()) / 2
-    else
-        self.text_x = 20
-        self.text_y = self.y + (self.h - self.text:getHeight()) / 2
-    end
-
-    love.graphics.draw(self.text, self.text_x, self.text_y)
+    love.graphics.draw(self.text, self.x + (self.w - self.text:getWidth()) / 2, self.y + (self.h - self.text:getHeight()) / 2)
 end
 
 function Button:setAction(action)

@@ -1,33 +1,24 @@
 Shop = Object:extend()
 
 function Shop:new(player)
-    self.w = 500
+    self.w = 600
     self.h = 500
     self.x = 200
     self.y = 20
 
     self.shown = false
 
-    self.inventory = {
-        {name = "Rockets", price = 200, q = 50},
-        {name = "Grenade", price = 200, q = 50},
-        {name = "Item", price = 200, q = 50},
-        {name = "Name 2", price = 200, q = 50},
-        {name = "A very long item name", price = 200, q = 50},
-        {name = "More grenades", price = 200, q = 50},
-    }
-
     self.buttons = {}
 
-    for i, item in pairs(self.inventory) do
+    local bh = 30
+    for i, item in pairs(weapons_pool) do
         i = i - 1
-        table.insert(self.buttons, ButtonShop(
-            item.name,
-            20,
-            60 + i * 40,
-            300,
-            30
-        ))
+        -- Name
+        table.insert(self.buttons, ButtonShop(item.name, 20, 60 + i * 40, 300, bh))
+        -- Price
+        table.insert(self.buttons, ButtonShop(string.format("$%s", item.price), 340, 60 + i * 40, 100, bh))
+        -- Quantity
+        table.insert(self.buttons, ButtonShop(string.format("%s", item.shop_quantity), 460, 60 + i * 40, 40, bh))
     end
 end
 
