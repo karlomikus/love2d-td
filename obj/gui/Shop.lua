@@ -1,9 +1,9 @@
 Shop = Object:extend()
 
 function Shop:new(player)
-    self.w = 600
+    self.w = 700
     self.h = 500
-    self.x = 200
+    self.x = (gw - self.w) / 2
     self.y = 20
 
     self.shown = false
@@ -12,13 +12,16 @@ function Shop:new(player)
 
     local bh = 30
     for i, item in pairs(weapons_pool) do
+        local can_buy = false--director.current_player.money >= item.price
         i = i - 1
-        -- Name
-        table.insert(self.buttons, ButtonShop(item.name, 20, 60 + i * 40, 300, bh))
-        -- Price
-        table.insert(self.buttons, ButtonShop(string.format("$%s", item.price), 340, 60 + i * 40, 100, bh))
         -- Quantity
-        table.insert(self.buttons, ButtonShop(string.format("%s", item.shop_quantity), 460, 60 + i * 40, 40, bh))
+        table.insert(self.buttons, ButtonShop(string.format("%s", item.shop_quantity), 20, 60 + i * 40, 50, bh))
+        -- Name
+        table.insert(self.buttons, ButtonShop(item.name, 70, 60 + i * 40, 360, bh))
+        -- Price
+        table.insert(self.buttons, ButtonShop(string.format("$%s", item.price), 430, 60 + i * 40, 140, bh))
+        -- Buy button
+        table.insert(self.buttons, Button("Buy", 600, 60 + i * 40, 60, bh, nil, not can_buy))
     end
 end
 
@@ -32,9 +35,12 @@ function Shop:draw()
 
     love.graphics.setColor(0, 0, 0, 0.5)
     love.graphics.rectangle("fill", self.x, self.y, self.w, self.h)
-    love.graphics.setColor(1, 1, 1, 1)
+    love.graphics.setColor({247/255, 0, 157/255, 0.2})
+    love.graphics.rectangle("line", self.x + 3, self.y + 3, self.w - 5, self.h - 5)
+    love.graphics.line(self.x, self.y + 40, self.x + self.w, self.y + 40)
+    love.graphics.setColor({247/255, 0, 157/255, 1})
 
-    love.graphics.print("Shop", self.x + self.w / 2, 40)
+    love.graphics.print("Weapon shop", self.x + 20, 26)
 
     love.graphics.push()
     love.graphics.translate(self.x, self.y)

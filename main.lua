@@ -40,6 +40,7 @@ function love.load()
     map_canvas = love.graphics.newCanvas()
 
     -- Modify defaults
+    love.graphics.setLineStyle("rough")
     love.graphics.setDefaultFilter('nearest', 'nearest')
 
     -- Font resources
@@ -64,10 +65,9 @@ function love.load()
 
     -- Shaders
     effect = moonshine(moonshine.effects.crt).chain(moonshine.effects.chromasep).chain(moonshine.effects.scanlines)
-    -- effect.chromasep.angle = math.rad(30)
-    -- effect.chromasep.radius = 1
-    -- effect.scanlines.opacity = 0.2
-    effect.disable("crt", "chromasep", "scanlines")
+    effect.chromasep.angle = math.rad(30)
+    effect.chromasep.radius = 1
+    effect.scanlines.opacity = 0.2
 
     -- Init game objs
     camera = camera()

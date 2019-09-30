@@ -1,10 +1,11 @@
 Button = Object:extend()
 
-function Button:new(text, x, y, w, h, hoverable)
+function Button:new(text, x, y, w, h, hoverable, disabled)
     self.x = x or 0
     self.y = y or 0
     self.w = w or 100
     self.h = h or 40
+    self.disabled = disabled or false
     self.text = love.graphics.newText(fonts.main_md, text)
 
     self.accent_color = {247/255, 0, 157/255, 1}
@@ -45,6 +46,9 @@ function Button:draw()
     love.graphics.rectangle("fill", self.x, self.y, self.w, self.h)
     love.graphics.setColor(self.accent_color)
     love.graphics.rectangle("line", self.x, self.y, self.w, self.h)
+    if self.disabled then
+        love.graphics.line(self.x, self.y + self.h, self.x + self.w, self.y)
+    end
     love.graphics.setColor(1, 1, 1, 1)
 
     love.graphics.draw(self.text, self.x + (self.w - self.text:getWidth()) / 2, self.y + (self.h - self.text:getHeight()) / 2)
