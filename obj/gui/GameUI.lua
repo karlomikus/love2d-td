@@ -5,6 +5,8 @@ function GameUI:new(player)
     self.x = 0
     self.y = gh - self.h
 
+    self.shop = Shop()
+
     self.buttons = {}
     self.buttons.shoot_button = Button("Shoot!", self.x + 40, self.y + (self.h - 40) / 2, 120, 40)
 
@@ -16,7 +18,7 @@ function GameUI:new(player)
     self.buttons.curr_weapon = Button("nil", self.x + 420, self.y + (self.h - 40) / 2, 250, 40, false)
     self.buttons.next_weapon = Button(">", self.x + 670, self.y + (self.h - 40) / 2, 40, 40)
 
-    self.buttons.shop = Button("Buy ($0)", self.x + 750, self.y + (self.h - 40) / 2, 250, 40)
+    self.buttons.shop = Button("Shop ($0)", self.x + 750, self.y + (self.h - 40) / 2, 200, 40)
 
     self.buttons.prev_weapon:setAction(function()
         director.current_player:prevWeapon()
@@ -37,6 +39,10 @@ function GameUI:new(player)
     self.buttons.dec_angle:setAction(function()
         director.current_player:decrementAngleBy(1, 1)
     end)
+
+    self.buttons.shop:setAction(function()
+        self.shop.shown = not self.shop.shown
+    end)
 end
 
 function GameUI:update(dt)
@@ -48,7 +54,7 @@ function GameUI:update(dt)
         self.buttons.angle_print.text:set(string.format("%s°", math.floor(director.current_player.barrel.angle) * -1))
     end
 
-    self.buttons.shop.text:set(string.format("Buy ($%s)", director.current_player.money))
+    self.buttons.shop.text:set(string.format("Shop ($%s)", director.current_player.money))
 
     if director.current_player:getCurrentItem() then
         self.buttons.curr_weapon.text:set(
@@ -76,4 +82,6 @@ function GameUI:draw()
     for _,b in pairs(self.buttons) do
         b:draw()
     end
+
+    self.shop:draw()
 end
