@@ -1,30 +1,22 @@
 Button = Object:extend()
 
-function Button:new(text, x, y, w, h, hoverable, disabled)
+function Button:new(text, x, y, w, h, hoverable, disabled, sound_on_click)
     self.x = x or 0
     self.y = y or 0
     self.w = w or 100
     self.h = h or 40
-    self.disabled = disabled or false
     self.text = love.graphics.newText(fonts.main_md, text)
-
+    if hoverable == nil then self.hoverable = true else self.hoverable = hoverable end
+    if disabled == nil then self.disabled = false else self.disabled = disabled end
+    if sound_on_click == nil then self.sound_on_click = false else self.sound_on_click = sound_on_click end
+    self.action = nil
     self.accent_color = {247/255, 0, 157/255, 1}
 
-    self.align = "center"
+    self.is_hover = false
+    self.count_hover = 0
 
     self.input = Input()
     self.input:bind('mouse1', 'do_action')
-
-    self.action = nil
-
-    if hoverable == nil then
-        self.hoverable = true
-    else
-        self.hoverable = false
-    end
-    self.is_hover = false
-
-    self.count_hover = 0
 end
 
 function Button:update(dt)
@@ -42,8 +34,8 @@ function Button:update(dt)
 
     if self.action and self.input:pressed('do_action') and love.mouse.getX() >= self.x and love.mouse.getX() <= self.x + self.w and love.mouse.getY() >= self.y and love.mouse.getY() <= self.y + self.h then
         if self.sound_on_click then
-            -- sounds.click:stop()
-            -- sounds.click:play()
+            sounds.click:stop()
+            sounds.click:play()
         end
         self.action()
     end
@@ -68,6 +60,12 @@ end
 
 function Button:setAction(action)
     self.action = action
+
+    return self
+end
+
+function Button:setDisabled(disabled)
+    self.disabled = disabled
 
     return self
 end

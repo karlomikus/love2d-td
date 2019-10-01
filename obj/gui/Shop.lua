@@ -9,23 +9,29 @@ function Shop:new(player)
     self.shown = false
 
     self.buttons = {}
-
-    local bh = 30
     for i, item in pairs(weapons_pool) do
-        local can_buy = false--director.current_player.money >= item.price
         i = i - 1
         -- Quantity
-        table.insert(self.buttons, ButtonShop(string.format("%s", item.shop_quantity), 20, 60 + i * 40, 50, bh))
+        table.insert(self.buttons, ButtonShop(string.format("%s", item.shop_quantity), 20, 60 + i * 40, 50, 30))
         -- Name
-        table.insert(self.buttons, ButtonShop(item.name, 70, 60 + i * 40, 360, bh))
+        table.insert(self.buttons, ButtonShop(item.name, 70, 60 + i * 40, 360, 30))
         -- Price
-        table.insert(self.buttons, ButtonShop(string.format("$%s", item.price), 430, 60 + i * 40, 140, bh))
+        table.insert(self.buttons, ButtonShop(string.format("$%s", item.price), 430, 60 + i * 40, 140, 30))
         -- Buy button
-        table.insert(self.buttons, Button("Buy", 600, 60 + i * 40, 60, bh, nil, not can_buy))
+        table.insert(self.buttons, Button("Buy", 600, 60 + i * 40, 60, 30, true, true, true))
     end
 end
 
 function Shop:update(dt)
+    if not self.shown then
+        return
+    end
+
+    -- self.buttons[#self.buttons]:setDisabled(director.current_player.money >= item.price)
+
+    for _,b in pairs(self.buttons) do
+        b:update(dt)
+    end
 end
 
 function Shop:draw()

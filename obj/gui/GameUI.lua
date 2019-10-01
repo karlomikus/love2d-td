@@ -10,13 +10,13 @@ function GameUI:new(player)
     self.buttons = {}
     self.buttons.shoot_button = Button("Shoot!", self.x + 40, self.y + (self.h - 40) / 2, 120, 40)
 
-    self.buttons.inc_angle = Button("<", self.x + 200, self.y + (self.h - 40) / 2, 40, 40)
+    self.buttons.inc_angle = Button("<", self.x + 200, self.y + (self.h - 40) / 2, 40, 40, true, false, true)
     self.buttons.angle_print = Button("0°", self.x + 240, self.y + (self.h - 40) / 2, 60, 40, false)
-    self.buttons.dec_angle = Button(">", self.x + 300, self.y + (self.h - 40) / 2, 40, 40)
+    self.buttons.dec_angle = Button(">", self.x + 300, self.y + (self.h - 40) / 2, 40, 40, true, false, true)
 
-    self.buttons.prev_weapon = Button("<", self.x + 380, self.y + (self.h - 40) / 2, 40, 40)
+    self.buttons.prev_weapon = Button("<", self.x + 380, self.y + (self.h - 40) / 2, 40, 40, true, false, true)
     self.buttons.curr_weapon = Button("nil", self.x + 420, self.y + (self.h - 40) / 2, 250, 40, false)
-    self.buttons.next_weapon = Button(">", self.x + 670, self.y + (self.h - 40) / 2, 40, 40)
+    self.buttons.next_weapon = Button(">", self.x + 670, self.y + (self.h - 40) / 2, 40, 40, true, false, true)
 
     self.buttons.shop = Button("Shop ($0)", self.x + 750, self.y + (self.h - 40) / 2, 200, 40)
 
@@ -75,6 +75,8 @@ function GameUI:update(dt)
             )
         )
     end
+
+    self.shop:update(dt)
 end
 
 function GameUI:draw()
