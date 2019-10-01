@@ -23,16 +23,28 @@ function Button:new(text, x, y, w, h, hoverable, disabled)
         self.hoverable = false
     end
     self.is_hover = false
+
+    self.count_hover = 0
 end
 
 function Button:update(dt)
     if self.hoverable and love.mouse.getX() >= self.x and love.mouse.getX() <= self.x + self.w and love.mouse.getY() >= self.y and love.mouse.getY() <= self.y + self.h then
+        self.count_hover = self.count_hover + 1
         self.is_hover = true
+        if self.count_hover == 1 then
+            sounds.button_hover:stop()
+            sounds.button_hover:play()
+        end
     else
+        self.count_hover = 0
         self.is_hover = false
     end
 
     if self.action and self.input:pressed('do_action') and love.mouse.getX() >= self.x and love.mouse.getX() <= self.x + self.w and love.mouse.getY() >= self.y and love.mouse.getY() <= self.y + self.h then
+        if self.sound_on_click then
+            -- sounds.click:stop()
+            -- sounds.click:play()
+        end
         self.action()
     end
 end

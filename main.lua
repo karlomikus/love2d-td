@@ -60,6 +60,8 @@ function love.load()
     sounds.tank_hit = love.audio.newSource("res/sounds/impact.ogg", "static")
     sounds.shop_open = love.audio.newSource("res/sounds/shop_open.ogg", "static")
     sounds.shop_close = love.audio.newSource("res/sounds/shop_close.ogg", "static")
+    sounds.button_hover = love.audio.newSource("res/sounds/button_hover.ogg", "static")
+    sounds.click = love.audio.newSource("res/sounds/click.ogg", "static")
 
     love.audio.setVolume(0.1)
     sounds.level_music:setLooping(true)
@@ -70,6 +72,7 @@ function love.load()
     effect.chromasep.angle = math.rad(30)
     effect.chromasep.radius = 1
     effect.scanlines.opacity = 0.2
+    effect.disable("crt", "chromasep", "scanlines")
 
     -- Init game objs
     camera = camera()
