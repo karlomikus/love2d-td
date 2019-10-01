@@ -41,6 +41,15 @@ function GameUI:new(player)
     end)
 
     self.buttons.shop:setAction(function()
+        sounds.shop_open:stop()
+        sounds.shop_close:stop()
+
+        if not self.shop.shown then
+            sounds.shop_open:play()
+        else
+            sounds.shop_close:play()
+        end
+
         self.shop.shown = not self.shop.shown
     end)
 end

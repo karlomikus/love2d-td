@@ -58,6 +58,8 @@ function love.load()
     sounds.rocket_start = love.audio.newSource("res/sounds/rocket_start.wav", "static")
     sounds.explosion = love.audio.newSource("res/sounds/explosion.wav", "static")
     sounds.tank_hit = love.audio.newSource("res/sounds/impact.ogg", "static")
+    sounds.shop_open = love.audio.newSource("res/sounds/shop_open.ogg", "static")
+    sounds.shop_close = love.audio.newSource("res/sounds/shop_close.ogg", "static")
 
     love.audio.setVolume(0.1)
     sounds.level_music:setLooping(true)
