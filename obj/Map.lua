@@ -43,11 +43,15 @@ function Map:new()
     end
 
     self.map = love.graphics.newImage(self.map_image_data)
+
+    -- Add rain
+    self.rain = Rain(0, 0)
 end
 
 function Map:update(dt)
     self.timer:update(dt)
     self.world:update(dt)
+    self.rain:update(dt)
 
     for i = #self.game_objects, 1, -1 do
         local game_object = self.game_objects[i]
@@ -85,6 +89,8 @@ function Map:draw()
     love.graphics.setColor(50/255, 18/255, 114/255)
     love.graphics.rectangle("fill", 0, gh/2 + 100, gw, 5)
     love.graphics.setColor(1, 1, 1)
+
+    self.rain:draw()
 
     -- Actual map
     love.graphics.draw(self.map)

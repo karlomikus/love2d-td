@@ -2,3 +2,4 @@
 - add terrain generation
 - fix tank y coll checks on every frame
 - fix barrel offset by 1px
+- split player into player/tank classes
