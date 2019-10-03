@@ -74,3 +74,9 @@ function Button:setDisabled(disabled)
 
     return self
 end
+
+function Button:setAccent(accent_color)
+    self.accent_color = accent_color
+
+    return self
+end

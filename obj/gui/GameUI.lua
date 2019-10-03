@@ -1,24 +1,30 @@
 GameUI = Object:extend()
 
 function GameUI:new(player)
-    self.h = 100
+    self.h = 70
     self.x = 0
     self.y = gh - self.h
 
     self.shop = Shop()
 
     self.buttons = {}
-    self.buttons.shoot_button = Button("Shoot!", self.x + 40, self.y + (self.h - 40) / 2, 120, 40)
+    self.buttons.shoot_button = Button("Shoot!", self.x + 20, self.y + (self.h - 40) / 2, 120, 40)
+    self.buttons.shoot_button:setAccent({123/255, 186/255, 29/255})
 
-    self.buttons.inc_angle = Button("<", self.x + 200, self.y + (self.h - 40) / 2, 40, 40, true, false, true)
-    self.buttons.angle_print = Button("0°", self.x + 240, self.y + (self.h - 40) / 2, 60, 40, false)
-    self.buttons.dec_angle = Button(">", self.x + 300, self.y + (self.h - 40) / 2, 40, 40, true, false, true)
+    self.buttons.inc_angle = Button("<", self.x + 170, self.y + (self.h - 40) / 2, 40, 40, true, false, true)
+    self.buttons.angle_print = Button("0°", self.x + 210, self.y + (self.h - 40) / 2, 60, 40, false)
+    self.buttons.dec_angle = Button(">", self.x + 270, self.y + (self.h - 40) / 2, 40, 40, true, false, true)
 
-    self.buttons.prev_weapon = Button("<", self.x + 380, self.y + (self.h - 40) / 2, 40, 40, true, false, true)
-    self.buttons.curr_weapon = Button("nil", self.x + 420, self.y + (self.h - 40) / 2, 250, 40, false)
-    self.buttons.next_weapon = Button(">", self.x + 670, self.y + (self.h - 40) / 2, 40, 40, true, false, true)
+    self.buttons.inc_power = Button("<", self.x + 330, self.y + (self.h - 40) / 2, 40, 40, true, false, true)
+    self.buttons.power_print = Button("0%", self.x + 370, self.y + (self.h - 40) / 2, 60, 40, false)
+    self.buttons.dec_power = Button(">", self.x + 430, self.y + (self.h - 40) / 2, 40, 40, true, false, true)
 
-    self.buttons.shop = Button("Shop ($0)", self.x + 750, self.y + (self.h - 40) / 2, 200, 40)
+    self.buttons.prev_weapon = Button("<", self.x + 490, self.y + (self.h - 40) / 2, 40, 40, true, false, true)
+    self.buttons.curr_weapon = Button("nil", self.x + 530, self.y + (self.h - 40) / 2, 250, 40, false)
+    self.buttons.next_weapon = Button(">", self.x + 780, self.y + (self.h - 40) / 2, 40, 40, true, false, true)
+
+    self.buttons.shop = Button("Shop ($0)", self.x + gw - 220, self.y + (self.h - 40) / 2, 200, 40)
+    self.buttons.shop:setAccent({252/255, 203/255, 78/255})
 
     self.buttons.prev_weapon:setAction(function()
         director.current_player:prevWeapon()
