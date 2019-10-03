@@ -36,7 +36,9 @@ function Map:new()
             local rb,gb,bb,ab = self:getPixel(x, y + 1)
             if a == 0 and ab == 1 then
                 for i = 1, terrain_top_border_height do
-                    self.map_image_data:setPixel(x, y + i, unpack(terrain_top_border_color))
+                    if y + i < self.map_image_data:getHeight() then
+                        self.map_image_data:setPixel(x, y + i, unpack(terrain_top_border_color))
+                    end
                 end
             end
         end
