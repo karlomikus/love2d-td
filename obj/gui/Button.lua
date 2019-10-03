@@ -51,6 +51,11 @@ function Button:draw()
     love.graphics.setColor(self.accent_color)
     love.graphics.rectangle("line", self.x, self.y, self.w, self.h)
     if self.disabled then
+        if self.is_hover then
+            love.graphics.setColor(0, 0, 0, 1)
+        else
+            love.graphics.setColor(self.accent_color)
+        end
         love.graphics.line(self.x, self.y + self.h, self.x + self.w, self.y)
     end
     love.graphics.setColor(1, 1, 1, 1)

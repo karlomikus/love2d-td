@@ -34,7 +34,7 @@ function Player:new(x, y, opts)
     self.current_item_idx = 1
     self.bar_w = 60
     self.bar_h = 3
-    self.money = 100
+    self.money = 2000
 
     -- Turn handling
     self.finished_action = false    -- Has player executed attack
@@ -66,7 +66,9 @@ function Player:new(x, y, opts)
     self.barrel.min_angle = 0
 
     -- Default weapons
-    self.inventory:giveItem(weapons_pool[1])
+    self.inventory:giveItem(weapons_pool[1], 10)
+    self.inventory:giveItem(weapons_pool[2], 1)
+    self.inventory:giveItem(weapons_pool[3], 2)
 end
 
 function Player:update(dt)

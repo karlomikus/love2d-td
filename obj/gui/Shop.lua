@@ -12,7 +12,7 @@ function Shop:new(player)
     for i, item in pairs(weapons_pool) do
         i = i - 1
         local buttonRow = {
-            ButtonShop(string.format("%s", item.shop_quantity), 20, 60 + i * 40, 50, 30, false),    -- Quantity
+            ButtonShop(string.format("%s", item.stock), 20, 60 + i * 40, 50, 30, false),    -- Quantity
             ButtonShop(item.name, 70, 60 + i * 40, 360, 30, false),                                 -- Name
             ButtonShop(string.format("$%s", item.price), 430, 60 + i * 40, 140, 30, false),         -- Price
             Button("Buy", 600, 60 + i * 40, 60, 30, true, true, true)                               -- Buy button

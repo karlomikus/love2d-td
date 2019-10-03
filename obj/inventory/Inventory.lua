@@ -45,7 +45,8 @@ function Inventory:hasItem(wp_item)
     return false
 end
 
-function Inventory:giveItem(wp_item)
+function Inventory:giveItem(wp_item, amount)
+    local amount = amount or 1
     -- Check if item already in inventory
     if self:hasItem(wp_item) then
         if self:getItem(wp_item).q >= self:getItem(wp_item).weapon_pool_item.max_per_player then
@@ -55,7 +56,7 @@ function Inventory:giveItem(wp_item)
 
         return true
     else
-        table.insert(self.items, InventoryItem(wp_item, 1))
+        table.insert(self.items, InventoryItem(wp_item, amount))
 
         return true
     end
