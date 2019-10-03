@@ -62,6 +62,7 @@ function Player:new(x, y, opts)
     self.barrel.x = self.x
     self.barrel.y = self.y
     self.barrel.angle = 0
+    self.barrel.power = 0.5
     self.barrel.max_angle = 180
     self.barrel.min_angle = 0
 
@@ -248,4 +249,16 @@ end
 
 function Player:giveMoney(amount)
     self.money = self.money + amount
+end
+
+function Player:incrementPowerBy(amount, dt)
+    if self.barrel.power <= 1 then
+        self.barrel.power = self.barrel.power + amount * dt
+    end
+end
+
+function Player:decrementPowerBy(amount, dt)
+    if self.barrel.power >= 0 then
+        self.barrel.power = self.barrel.power - amount * dt
+    end
 end

@@ -3,7 +3,8 @@ Rocket = GameObject:extend()
 function Rocket:new(x, y, opts)
     Rocket.super.new(self, x, y, opts)
 
-    self.velocity = 500
+    self.max_velocity = 800
+    self.velocity = self.max_velocity * director.current_player.barrel.power
     self.dmg = 50
     self.rot = math.rad(opts.rot)
 

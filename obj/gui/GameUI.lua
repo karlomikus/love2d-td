@@ -15,9 +15,9 @@ function GameUI:new(player)
     self.buttons.angle_print = Button("0°", self.x + 210, self.y + (self.h - 40) / 2, 60, 40, false)
     self.buttons.dec_angle = Button(">", self.x + 270, self.y + (self.h - 40) / 2, 40, 40, true, false, true)
 
-    self.buttons.inc_power = Button("<", self.x + 330, self.y + (self.h - 40) / 2, 40, 40, true, false, true)
+    self.buttons.dec_power = Button("<", self.x + 330, self.y + (self.h - 40) / 2, 40, 40, true, false, true)
     self.buttons.power_print = Button("0%", self.x + 370, self.y + (self.h - 40) / 2, 60, 40, false)
-    self.buttons.dec_power = Button(">", self.x + 430, self.y + (self.h - 40) / 2, 40, 40, true, false, true)
+    self.buttons.inc_power = Button(">", self.x + 430, self.y + (self.h - 40) / 2, 40, 40, true, false, true)
 
     self.buttons.prev_weapon = Button("<", self.x + 490, self.y + (self.h - 40) / 2, 40, 40, true, false, true)
     self.buttons.curr_weapon = Button("nil", self.x + 530, self.y + (self.h - 40) / 2, 250, 40, false)
@@ -58,6 +58,14 @@ function GameUI:new(player)
 
         self.shop.shown = not self.shop.shown
     end)
+
+    self.buttons.inc_power:setAction(function()
+        director.current_player:incrementPowerBy(0.01, 1)
+    end)
+
+    self.buttons.dec_power:setAction(function()
+        director.current_player:decrementPowerBy(0.01, 1)
+    end)
 end
 
 function GameUI:update(dt)
@@ -68,6 +76,8 @@ function GameUI:update(dt)
     if director.current_player.barrel.angle < 0 then
         self.buttons.angle_print.text:set(string.format("%s°", math.floor(director.current_player.barrel.angle) * -1))
     end
+
+    self.buttons.power_print.text:set(string.format("%s%%", director.current_player.barrel.power * 100))
 
     self.buttons.shop.text:set(string.format("Shop ($%s)", director.current_player.money))
 
