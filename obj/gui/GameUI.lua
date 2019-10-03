@@ -69,9 +69,9 @@ function GameUI:update(dt)
         self.buttons.curr_weapon.text:set(
             string.format(
                 "%s (%s/%s)",
-                director.current_player:getCurrentItem().name,
+                director.current_player:getCurrentItem().weapon_pool_item.name,
                 director.current_player:getCurrentItem().q,
-                director.current_player:getCurrentItem().max
+                director.current_player:getCurrentItem().weapon_pool_item.max_per_player
             )
         )
     end

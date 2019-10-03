@@ -8,17 +8,19 @@ function Shop:new(player)
 
     self.shown = false
 
-    self.buttons = {}
+    self.items = {}
     for i, item in pairs(weapons_pool) do
         i = i - 1
-        -- Quantity
-        table.insert(self.buttons, ButtonShop(string.format("%s", item.shop_quantity), 20, 60 + i * 40, 50, 30))
-        -- Name
-        table.insert(self.buttons, ButtonShop(item.name, 70, 60 + i * 40, 360, 30))
-        -- Price
-        table.insert(self.buttons, ButtonShop(string.format("$%s", item.price), 430, 60 + i * 40, 140, 30))
-        -- Buy button
-        table.insert(self.buttons, Button("Buy", 600, 60 + i * 40, 60, 30, true, true, true))
+        local buttonRow = {
+            ButtonShop(string.format("%s", item.shop_quantity), 20, 60 + i * 40, 50, 30, false),    -- Quantity
+            ButtonShop(item.name, 70, 60 + i * 40, 360, 30, false),                                 -- Name
+            ButtonShop(string.format("$%s", item.price), 430, 60 + i * 40, 140, 30, false),         -- Price
+            Button("Buy", 600, 60 + i * 40, 60, 30, true, true, true)                               -- Buy button
+        }
+        buttonRow[#buttonRow]:setAction(function ()
+            self:buy(item)
+        end)
+        table.insert(self.items, buttonRow)
     end
 end
 
@@ -27,10 +29,14 @@ function Shop:update(dt)
         return
     end
 
-    -- self.buttons[#self.buttons]:setDisabled(director.current_player.money >= item.price)
+    for i, item in pairs(weapons_pool) do
+        self.items[i][#self.items[i]]:setDisabled(director.current_player.money < item.price)
+    end
 
-    for _,b in pairs(self.buttons) do
-        b:update(dt)
+    for i,r in ipairs(self.items) do
+        for _,b in pairs(r) do
+            b:update(dt)
+        end
     end
 end
 
@@ -49,9 +55,20 @@ function Shop:draw()
     love.graphics.print("Weapon shop", self.x + 20, 26)
 
     love.graphics.push()
-    love.graphics.translate(self.x, self.y)
-    for _,b in pairs(self.buttons) do
-        b:draw()
+    -- love.graphics.translate(self.x, self.y)
+    for i,r in ipairs(self.items) do
+        for _,b in pairs(r) do
+            b:draw()
+        end
     end
     love.graphics.pop()
+end
+
+function Shop:buy(item)
+    if director.current_player.money < item.price then
+        return false
+    end
+
+    director.current_player.money = director.current_player.money - item.price
+    director.current_player.inventory:giveItem(item)
 end

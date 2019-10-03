@@ -64,6 +64,9 @@ function Player:new(x, y, opts)
     self.barrel.angle = 0
     self.barrel.max_angle = 180
     self.barrel.min_angle = 0
+
+    -- Default weapons
+    self.inventory:giveItem(weapons_pool[1])
 end
 
 function Player:update(dt)
@@ -209,7 +212,7 @@ function Player:shoot()
         local d = 1.2 * self.barrel.w
         self.p_system:emit(32)
 
-        map:addGameObject(self:getCurrentItem().obj, self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
+        map:addGameObject(self:getCurrentItem().weapon_pool_item.obj, self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
         self:getCurrentItem().q = self:getCurrentItem().q - 1
     else
         love.event.push('endTurn')
