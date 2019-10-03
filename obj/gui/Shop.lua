@@ -69,6 +69,8 @@ function Shop:buy(item)
         return false
     end
 
-    director.current_player.money = director.current_player.money - item.price
-    director.current_player.inventory:giveItem(item)
+    local itemGiven = director.current_player.inventory:giveItem(item)
+    if itemGiven then
+        director.current_player.money = director.current_player.money - item.price
+    end
 end
