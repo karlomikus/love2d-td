@@ -32,7 +32,7 @@ function Button:update(dt)
         self.is_hover = false
     end
 
-    if self.action and self.input:pressed('do_action') and love.mouse.getX() >= self.x and love.mouse.getX() <= self.x + self.w and love.mouse.getY() >= self.y and love.mouse.getY() <= self.y + self.h then
+    if self.action and self.input:down('do_action', 0.1, 0.4) and love.mouse.getX() >= self.x and love.mouse.getX() <= self.x + self.w and love.mouse.getY() >= self.y and love.mouse.getY() <= self.y + self.h then
         if self.sound_on_click then
             sounds.click:stop()
             sounds.click:play()
