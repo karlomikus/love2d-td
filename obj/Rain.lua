@@ -17,7 +17,9 @@ function Rain:update(dt)
                 x = 0 + love.math.random(1, gw),
                 y = 0,
                 a = love.math.random(0.3, 0.5),
-                vy = love.math.random(400, 700)
+                vy = love.math.random(400, 700),
+                lh = love.math.random(4, 12),
+                ld = love.math.random(1, 2)
             })
         end
     end)
@@ -36,7 +38,8 @@ end
 function Rain:draw()
     for _,d in pairs(self.drops) do
         love.graphics.setColor(122/255, 103/255, 166/255, d.a)
-        love.graphics.line(d.x, d.y, d.x, d.y - love.math.random(4, 12))
+        love.graphics.line(d.x, d.y, d.x, d.y - d.lh)
+        love.graphics.circle("fill", d.x, d.y, d.ld)
     end
     love.graphics.setColor(1, 1, 1, 1)
 end

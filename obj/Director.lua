@@ -107,6 +107,7 @@ function Director:nextPlayer(shot_player)
         if next_index > #self.players then
             next_index = 1
             self.round.count = self.round.count + 1
+            self:roundReward()
         end
 
         self.current_player = self.players[next_index]
@@ -121,6 +122,12 @@ function Director:nextPlayer(shot_player)
     -- Show current player indicator
     self.current_player_indicator.color = {1, 1, 1, 1}
     self.timer:tween(1, self.current_player_indicator, {color = {1, 1, 1, 0}}, 'in-out-quad')
+end
+
+function Director:roundReward()
+    for _, p in ipairs(self.players) do
+        p:giveMoney(250)
+    end
 end
 
 function love.handlers.endTurn()

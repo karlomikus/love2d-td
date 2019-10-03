@@ -245,3 +245,7 @@ function Player:prevWeapon()
     end
     self.current_item_idx = prev_weapon_idx
 end
+
+function Player:giveMoney(amount)
+    self.money = self.money + amount
+end
