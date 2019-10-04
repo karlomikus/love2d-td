@@ -263,3 +263,9 @@ function Player:decrementPowerBy(amount, dt)
         self.barrel.power = self.barrel.power - amount * dt
     end
 end
+
+function Player:focus()
+    camera.scale = 1.2
+    camera.x = self.x
+    camera.y = self.y
+end

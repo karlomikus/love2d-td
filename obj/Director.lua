@@ -115,6 +115,8 @@ function Director:nextPlayer(shot_player)
         self.current_player = self.players[1]
     end
 
+    self.current_player:focus()
+
     -- Reset round timer
     self.round.time_left = self.round.time_max
     -- self.timer:cancel(self.round_timer_handler)

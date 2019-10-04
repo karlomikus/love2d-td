@@ -50,7 +50,7 @@ function Shop:draw()
     love.graphics.setColor({247/255, 0, 157/255, 0.2})
     love.graphics.rectangle("line", self.x + 3, self.y + 3, self.w - 5, self.h - 5)
     love.graphics.line(self.x, self.y + 40, self.x + self.w, self.y + 40)
-    love.graphics.setColor(COLORS.PINK)
+    love.graphics.setColor(COLORS.YELLOW)
 
     love.graphics.print("Weapon shop", self.x + 20, 26)
 
