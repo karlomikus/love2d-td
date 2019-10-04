@@ -24,7 +24,7 @@ function GameUI:new(player)
     self.buttons.next_weapon = Button(">", self.x + 780, self.y + (self.h - 40) / 2, 40, 40, true, false, true)
 
     self.buttons.shop = Button("Shop ($0)", self.x + gw - 220, self.y + (self.h - 40) / 2, 200, 40)
-    self.buttons.shop:setAccent({252/255, 203/255, 78/255})
+    self.buttons.shop:setAccent(COLORS.YELLOW)
 
     self.buttons.prev_weapon:setAction(function()
         director.current_player:prevWeapon()
@@ -101,7 +101,7 @@ function GameUI:draw()
     love.graphics.setColor(1, 1, 1, 1)
 
     love.graphics.setFont(fonts.main_md)
-    love.graphics.setColor(252/255, 203/255, 78/255, 1)
+    love.graphics.setColor(COLORS.YELLOW)
     love.graphics.print("Round " .. director.round.count, 10, 10)
     love.graphics.setColor(1, 1, 1, 1)
     love.graphics.print("Time left: " .. director.round.time_left .. "s", 10, 35)

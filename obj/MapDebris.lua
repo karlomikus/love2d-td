@@ -3,7 +3,7 @@ MapDebris = GameObject:extend()
 function MapDebris:new(x, y, opts)
     MapDebris.super.new(self, x, y, opts)
 
-    self.color = {247/255, 0, 157/255, 1}
+    self.color = COLORS.PINK
     self.r = randomp(0, 2*math.pi)
     self.s = opts.s or randomp(2, 3)
     self.v = opts.v or randomp(75, 150)

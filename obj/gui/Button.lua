@@ -10,7 +10,7 @@ function Button:new(text, x, y, w, h, hoverable, disabled, sound_on_click)
     if disabled == nil then self.disabled = false else self.disabled = disabled end
     if sound_on_click == nil then self.sound_on_click = false else self.sound_on_click = sound_on_click end
     self.action = nil
-    self.accent_color = {247/255, 0, 157/255, 1}
+    self.accent_color = COLORS.PINK
 
     self.is_hover = false
     self.count_hover = 0

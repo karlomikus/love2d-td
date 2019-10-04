@@ -10,23 +10,11 @@ anim8 = require "libs/anim8"
 
 COLORS = {
     BG = { hex2rgb("#130038") },
-    SLATE_DARK = { hex2rgb("#2e2c3b") },
-    SLATE_MED = { hex2rgb("#3e415f") },
-    SLATE_LIGHT = { hex2rgb("#55607d") },
-    GRAY = { hex2rgb("#747d88") },
-    ELECTRO_GREEN = { hex2rgb("#41de95") },
-    SEA_GREEN = { hex2rgb("#2aa4aa") },
-    BLUE = { hex2rgb("#3b77a6") },
+    PINK = { hex2rgb("#f7009c") },
+    YELLOW = { hex2rgb("#fccb4e") },
+    BLUE = { hex2rgb("#1d4ef0") },
     GREEN = { hex2rgb("#249337") },
-    GREEN_LIGHT = { hex2rgb("#56be44") },
-    LEMON = { hex2rgb("#c6de78") },
-    YELLOW = { hex2rgb("#f3c220") },
-    ORANGE = { hex2rgb("#c4651c") },
-    RED = { hex2rgb("#b54131") },
-    PURPLE_DARK = { hex2rgb("#61407a") },
-    PURPLE_LIGHT = { hex2rgb("#8f3da7") },
-    PINK = { hex2rgb("#ea619d") },
-    SKY = { hex2rgb("#c1e5ea") },
+    RED = { hex2rgb("#f01d1d") },
 }
 
 function love.load()
@@ -81,9 +69,10 @@ function love.load()
     gameUI = GameUI()
 
     -- Add players
-    director:addPlayer(100, 0, {color = COLORS["GREEN"], name = "Player 1"})
-    director:addPlayer(900, 0, {color = COLORS["RED"], name = "Player 2"})
-    director:addPlayer(600, 0, {color = COLORS["BLUE"], name = "Player 3"})
+    director:addPlayer(100, 0, {color = COLORS.GREEN, name = "Player 1"})
+    director:addPlayer(900, 0, {color = COLORS.RED, name = "Player 2"})
+    director:addPlayer(600, 0, {color = COLORS.BLUE, name = "Player 3"})
+    director:addPlayer(400, 0, {color = COLORS.YELLOW, name = "Player 4"})
     director:startRound()
 end
 

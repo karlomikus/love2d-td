@@ -2,7 +2,7 @@ Map = Object:extend()
 
 function Map:new()
     local terrain_top_border_height = 8
-    local terrain_top_border_color = {247/255, 0, 157/255}
+    local terrain_top_border_color = COLORS.PINK
 
     -- Init
     love.physics.setMeter(32)
