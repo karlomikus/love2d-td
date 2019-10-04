@@ -92,14 +92,6 @@ function Map:update(dt)
 end
 
 function Map:draw()
-    -- Map bg
-    love.graphics.setColor(15/255, 2/255, 43/255)
-    love.graphics.rectangle("fill", 0, gh/2 + 100, gw, gh)
-    love.graphics.setColor(50/255, 18/255, 114/255)
-    love.graphics.rectangle("fill", 0, gh/2 + 100, gw, 5)
-    love.graphics.setColor(1, 1, 1)
-
-    self.rain:draw()
 
     -- Actual map
     love.graphics.draw(self.map)
