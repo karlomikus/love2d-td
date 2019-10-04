@@ -9,6 +9,7 @@ function Map:new()
     self.coll_checks = 0
     self.world = love.physics.newWorld(0, 9.81 * 32, true)
     self.game_objects = {}
+    self.map_needs_update = false
 
     -- Camera controls
     self.timer = Timer()
@@ -65,7 +66,9 @@ function Map:update(dt)
     end
 
     -- TODO: Check if needs updating
-    self.map = love.graphics.newImage(self.map_image_data)
+    if self.map_needs_update then
+        self.map = love.graphics.newImage(self.map_image_data)
+    end
 
     if self.input:down('move_camera') then
         local mx, my = camera:getMousePosition(sx, sy, 0, 0, sx*gw, sy*gh)

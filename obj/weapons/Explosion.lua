@@ -9,9 +9,11 @@ function Explosion:new(x, y, opts)
     local g = anim8.newGrid(33, 33, texture.explosion:getWidth(), texture.explosion:getHeight())
     self.animation = anim8.newAnimation(g('1-7',1), 0.03)
 
+    map.map_needs_update = true
     self.timer:after(0.03 * 7, function ()
         love.event.push('endTurn')
         self.dead = true
+        map.map_needs_update = false
     end)
 
     camera:shake(5, 0.3, 60)
