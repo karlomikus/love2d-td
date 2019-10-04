@@ -2,4 +2,4 @@
 
 Schorched earth clone
 
-![Curren status](res/current_screenshot.jpg?raw=true "RAWZ")
+![Curren status](res/current_screenshot.png?raw=true "RAWZ")
