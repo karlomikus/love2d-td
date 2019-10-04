@@ -1,4 +1,4 @@
-GameObject = Object:extend()
+local GameObject = Object:extend()
 
 function GameObject:new(x, y, opts)
     local opts = opts or {}
@@ -29,3 +29,5 @@ end
 
 function GameObject:destroy()
 end
+
+return GameObject

@@ -226,6 +226,7 @@ function Player:onDamageTaken(dmgSource)
     self.hp = self.hp - dmgSource.dmg
 
     map:addGameObject('TargetHit', dmgSource.x, dmgSource.y)
+    map:addGameObject('FloatingText', string.format("-%s", dmgSource.dmg), dmgSource.x, dmgSource.y)
 
     sounds.tank_hit:stop()
     sounds.tank_hit:play()

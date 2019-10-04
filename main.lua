@@ -7,6 +7,7 @@ Timer = require "libs/Timer"
 Bresenham = require "libs/Bresenham"
 camera = require "libs/SXCamera"
 anim8 = require "libs/anim8"
+GameObject = require "libs/GameObject"
 
 COLORS = {
     BG = { hex2rgb("#130038") },
