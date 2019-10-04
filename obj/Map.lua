@@ -74,11 +74,15 @@ function Map:update(dt)
     end
 
     if self.input:pressed('zoom_in') then
-        self.timer:tween(0.1, camera, {scale = camera.scale + 0.2}, 'in-out-cubic')
+        if camera.scale <= 2 then
+            self.timer:tween(0.05, camera, {scale = camera.scale + 0.2}, 'in-out-cubic')
+        end
     end
 
     if self.input:pressed('zoom_out') then
-        self.timer:tween(0.1, camera, {scale = camera.scale - 0.2}, 'in-out-cubic')
+        if camera.scale >= 0.7 then
+            self.timer:tween(0.05, camera, {scale = camera.scale - 0.2}, 'in-out-cubic')
+        end
     end
 
     self.previous_mx, self.previous_my = camera:getMousePosition(sx, sy, 0, 0, sx*gw, sy*gh)
