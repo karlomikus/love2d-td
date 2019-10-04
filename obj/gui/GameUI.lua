@@ -35,7 +35,9 @@ function GameUI:new(player)
     end)
 
     self.buttons.shoot_button:setAction(function()
-        director.current_player:shoot()
+        if director.current_player.state == "idle" then
+            director.current_player:shoot()
+        end
     end)
 
     self.buttons.inc_angle:setAction(function()
@@ -51,8 +53,10 @@ function GameUI:new(player)
         sounds.shop_close:stop()
 
         if not self.shop.shown then
+            director.current_player.state = "shopping"
             sounds.shop_open:play()
         else
+            director.current_player.state = "idle"
             sounds.shop_close:play()
         end
 

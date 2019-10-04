@@ -1,3 +1,4 @@
 - add terrain generation
 - fix tank y coll checks on every frame
 - split player into player/tank classes
+- remeber player camera pos

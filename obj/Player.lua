@@ -37,7 +37,7 @@ function Player:new(x, y, opts)
     self.money = 2000
 
     -- Turn handling
-    self.finished_action = false    -- Has player executed attack
+    self.state = "idle"             -- Has player executed attack
     self.controls_paused = false    -- Does player have control of tank
 
     -- Particles
@@ -103,7 +103,7 @@ function Player:update(dt)
         return
     end
 
-    if self.finished_action then
+    if self.state ~= "idle" then
         return
     end
 
@@ -209,7 +209,7 @@ function Player:decrementAngleBy(angle, dt)
 end
 
 function Player:shoot()
-    self.finished_action = true
+    self.state = "waiting"
 
     if self:getCurrentItem().q > 0 then
         local d = 1.2 * self.barrel.w

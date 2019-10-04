@@ -93,7 +93,7 @@ end
 function Director:nextPlayer(shot_player)
     if shot_player then
         -- Reset current player
-        shot_player.finished_action = false
+        shot_player.state = "idle"
 
         -- Find index of current player in table
         local next_index = 1

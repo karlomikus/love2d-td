@@ -8,6 +8,9 @@ function Shop:new(player)
 
     self.shown = false
 
+    self.close_btn = Button("X", self.x + self.w - 40, self.y + 6, 30, 30)
+    self.close_btn:setAccent(COLORS.RED)
+
     self.items = {}
     for i, item in pairs(weapons_pool) do
         i = i - 1
@@ -32,6 +35,8 @@ function Shop:update(dt)
     for i, item in pairs(weapons_pool) do
         self.items[i][#self.items[i]]:setDisabled(director.current_player.money < item.price)
     end
+
+    self.close_btn:update(dt)
 
     for i,r in ipairs(self.items) do
         for _,b in pairs(r) do
@@ -61,6 +66,8 @@ function Shop:draw()
         end
     end
     love.graphics.pop()
+
+    self.close_btn:draw()
 end
 
 function Shop:buy(item)
