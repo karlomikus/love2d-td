@@ -77,12 +77,8 @@ function GameUI:update(dt)
         b:update(dt)
     end
 
-    if director.current_player.barrel.angle < 0 then
-        self.buttons.angle_print.text:set(string.format("%s°", math.floor(director.current_player.barrel.angle) * -1))
-    end
-
+    self.buttons.angle_print.text:set(string.format("%s°", math.floor(director.current_player.barrel.angle) * -1))
     self.buttons.power_print.text:set(string.format("%s%%", director.current_player.barrel.power * 100))
-
     self.buttons.shop.text:set(string.format("Shop ($%s)", director.current_player.money))
 
     if director.current_player:getCurrentItem() then

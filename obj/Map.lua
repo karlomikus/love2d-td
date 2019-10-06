@@ -74,6 +74,17 @@ function Map:update(dt)
         local mx, my = camera:getMousePosition(sx, sy, 0, 0, sx*gw, sy*gh)
         local dx, dy = mx - self.previous_mx, my - self.previous_my
         camera:move(-dx, -dy)
+        if camera.x <= 0 then
+            camera.x = 0
+        elseif camera.x >= gw then
+            camera.x = gw
+        end
+
+        if camera.y >= gh then
+            camera.y = gh
+        elseif camera.y <= (gh * 2) * -1 then
+            camera.y = (gh * 2) * -1
+        end
     end
 
     if self.input:pressed('zoom_in') then

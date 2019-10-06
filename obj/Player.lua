@@ -215,7 +215,15 @@ function Player:shoot()
         local d = 1.2 * self.barrel.w
         self.p_system:emit(32)
 
-        map:addGameObject(self:getCurrentItem().weapon_pool_item.obj, self.barrel.x + d * math.cos(math.rad(self.barrel.angle)), self.barrel.y + d * math.sin(math.rad(self.barrel.angle)), {rot = self.barrel.angle})
+        if self:getCurrentItem().weapon_pool_item.obj == "Rocket" then
+            map:addGameObject(
+                self:getCurrentItem().weapon_pool_item.obj,
+                self.barrel.x + d * math.cos(math.rad(self.barrel.angle)),
+                self.barrel.y + d * math.sin(math.rad(self.barrel.angle)),
+                {rot = self.barrel.angle}
+            )
+        end
+
         self:getCurrentItem().q = self:getCurrentItem().q - 1
     else
         love.event.push('endTurn')

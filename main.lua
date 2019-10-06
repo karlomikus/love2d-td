@@ -65,9 +65,11 @@ function love.load()
 
     -- Init game objs
     camera = camera()
+    -- camera:setBounds(0, 0, gw, gh)
     map = Map()
     director = Director()
     gameUI = GameUI()
+    wp = WeaponManager()
 
     -- Add players
     director:addPlayer(100, 0, {color = COLORS.GREEN, name = "Player 1"})
@@ -82,6 +84,7 @@ function love.update(dt)
     map:update(dt)
     director:update(dt)
     gameUI:update(dt)
+    wp:update(dt)
 end
 
 function love.draw()

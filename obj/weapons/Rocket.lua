@@ -52,8 +52,7 @@ function Rocket:destroy()
 end
 
 function Rocket:onHit(x, y)
-    map:addGameObject('Explosion', x, y, {dmg = self.dmg})
+    map:addGameObject('Explosion', x, y, {dmg = self.dmg, source = self})
     sounds.explosion:stop()
     sounds.explosion:play()
-    self.dead = true
 end
