@@ -58,7 +58,9 @@ function Map:update(dt)
 
     for i = #self.game_objects, 1, -1 do
         local game_object = self.game_objects[i]
-        game_object:update(dt)
+        if game_object.do_update then
+            game_object:update(dt)
+        end
         if game_object.dead then
             game_object:destroy()
             table.remove(self.game_objects, i)
@@ -118,7 +120,9 @@ function Map:draw()
 
     -- Draw map objects
     for _, game_object in ipairs(self.game_objects) do
-        game_object:draw(dt)
+        if game_object.visible then
+            game_object:draw(dt)
+        end
     end
 end
 

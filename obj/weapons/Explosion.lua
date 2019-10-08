@@ -3,21 +3,21 @@ Explosion = GameObject:extend()
 function Explosion:new(x, y, opts)
     Explosion.super.new(self, x, y, opts)
 
+    sounds.explosion:stop()
+    sounds.explosion:play()
+
     self.radius = opts.radius or 33
     self.scorched_earth = self.radius + 5
+    camera:shake(5, 0.3, 60)
 
     local g = anim8.newGrid(33, 33, texture.explosion:getWidth(), texture.explosion:getHeight())
     self.animation = anim8.newAnimation(g('1-7',1), 0.03)
 
-    self.source.dead = true
     map.map_needs_update = true
     self.timer:after(0.03 * 7, function ()
-        love.event.push('endTurn')
         self.dead = true
         map.map_needs_update = false
     end)
-
-    camera:shake(5, 0.3, 60)
 
     for i = 1, love.math.random(12, 20) do
         map:addGameObject('MapDebris', self.x, self.y)

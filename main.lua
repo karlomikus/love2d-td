@@ -45,6 +45,8 @@ function love.load()
     sounds = {}
     sounds.level_music = love.audio.newSource("res/sounds/bg.ogg", "stream")
     sounds.rocket_start = love.audio.newSource("res/sounds/rocket_start.wav", "static")
+    sounds.rocket_fly = love.audio.newSource("res/sounds/rocket_fly.mp3", "static")
+    sounds.tank_move = love.audio.newSource("res/sounds/tank_move.wav", "static")
     sounds.explosion = love.audio.newSource("res/sounds/explosion.wav", "static")
     sounds.tank_hit = love.audio.newSource("res/sounds/impact.ogg", "static")
     sounds.shop_open = love.audio.newSource("res/sounds/shop_open.ogg", "static")

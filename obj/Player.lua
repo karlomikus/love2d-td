@@ -130,6 +130,7 @@ function Player:update(dt)
         if not map:collided(self.x + self.hitbox.w, self.y, 1, self.hitbox.h - self.hitbox.damping) then
             self.mp = math.floor(self.mp - 10 * dt)
             self.x = self.x + (self.speed * dt)
+            sounds.tank_move:play()
             if map:collided(self.x, self.y + self.hitbox.h - self.hitbox.damping, self.hitbox.w, 1) then
                 self.y = self.y - 1
             end
@@ -141,10 +142,15 @@ function Player:update(dt)
         if not map:collided(self.x - 1, self.y, 1, self.hitbox.h - self.hitbox.damping) then
             self.mp = math.floor(self.mp - 10 * dt)
             self.x = self.x - (self.speed * dt)
+            sounds.tank_move:play()
             if map:collided(self.x, self.y + self.hitbox.h - self.hitbox.damping, self.hitbox.w, 1) then
                 self.y = self.y - 1
             end
         end
+    end
+
+    if self.input:released('fwd') or self.input:released('bwd') then
+        sounds.tank_move:stop()
     end
 
     -- Change waeapon
