@@ -228,6 +228,13 @@ function Player:shoot()
                 self.barrel.y + d * math.sin(math.rad(self.barrel.angle)),
                 {rot = self.barrel.angle}
             )
+        elseif self:getCurrentItem().weapon_pool_item.obj == "Grenade" then
+            map:addGameObject(
+                self:getCurrentItem().weapon_pool_item.obj,
+                self.barrel.x + d * math.cos(math.rad(self.barrel.angle)),
+                self.barrel.y + d * math.sin(math.rad(self.barrel.angle)),
+                {rot = self.barrel.angle}
+            )
         end
 
         self:getCurrentItem().q = self:getCurrentItem().q - 1

@@ -8,6 +8,7 @@ Bresenham = require "libs/Bresenham"
 camera = require "libs/SXCamera"
 anim8 = require "libs/anim8"
 GameObject = require "libs/GameObject"
+vector = require "libs/Vector"
 
 COLORS = {
     BG = { hex2rgb("#130038") },
