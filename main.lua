@@ -55,8 +55,10 @@ function love.load()
     sounds.button_hover = love.audio.newSource("res/sounds/button_hover.ogg", "static")
     sounds.click = love.audio.newSource("res/sounds/click.ogg", "static")
     sounds.invalid = love.audio.newSource("res/sounds/invalid_action.ogg", "static")
+    sounds.dirt = love.audio.newSource("res/sounds/dirt.ogg", "static")
 
     love.audio.setVolume(0.1)
+    sounds.tank_move:setVolume(0.1)
     sounds.level_music:setLooping(true)
     sounds.level_music:play()
 

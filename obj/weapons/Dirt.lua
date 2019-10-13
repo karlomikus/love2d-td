@@ -3,6 +3,9 @@ Dirt = GameObject:extend()
 function Dirt:new(x, y, opts)
     Dirt.super.new(self, x, y, opts)
 
+    sounds.dirt:stop()
+    sounds.dirt:play()
+
     self.radius_max = 40
     self.radius = 0
 
@@ -10,6 +13,7 @@ function Dirt:new(x, y, opts)
     self.timer:after(1, function ()
         self.dead = true
         map.map_needs_update = false
+        sounds.dirt:stop()
     end)
 end
 

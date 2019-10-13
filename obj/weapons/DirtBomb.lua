@@ -15,6 +15,9 @@ function DirtBomb:new(x, y, opts)
     self.fixture:setUserData("DirtBomb")
     self.body:setMass(0.03)
     self.body:setLinearVelocity(self.velocity * math.cos(self.rot), self.velocity * math.sin(self.rot))
+
+    sounds.rocket_start:stop()
+    sounds.rocket_start:play()
 end
 
 function DirtBomb:update(dt)
@@ -46,6 +49,7 @@ function DirtBomb:destroy()
 end
 
 function DirtBomb:onHit(x, y)
+    sounds.rocket_start:stop()
     map:addGameObject('Dirt', x, y)
     self.dead = true
     love.event.push('endTurn')
