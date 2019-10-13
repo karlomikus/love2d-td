@@ -10,6 +10,11 @@ function Shop:new(player)
 
     self.close_btn = Button("X", self.x + self.w - 40, self.y + 6, 30, 30)
     self.close_btn:setAccent(COLORS.RED)
+    self.close_btn:setAction(function()
+        director.current_player.state = "idle"
+        sounds.shop_close:play()
+        gameUI.shop.shown = false
+    end)
 
     self.items = {}
     for i, item in pairs(weapons_pool) do
