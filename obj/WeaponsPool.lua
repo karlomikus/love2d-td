@@ -14,13 +14,6 @@ weapons_pool = {
         max_per_player = 5
     },
     {
-        name = "Grenade",
-        obj = "Grenade",
-        price = 200,
-        stock = 8,
-        max_per_player = 5
-    },
-    {
         name = "Dirt bomb",
         obj = "DirtBomb",
         price = 400,
