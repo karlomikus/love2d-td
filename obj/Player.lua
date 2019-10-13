@@ -69,7 +69,7 @@ function Player:new(x, y, opts)
     -- Default weapons
     self.inventory:giveItem(weapons_pool[1], 10)
     self.inventory:giveItem(weapons_pool[2], 1)
-    self.inventory:giveItem(weapons_pool[3], 2)
+    self.inventory:giveItem(weapons_pool[3], 0)
 end
 
 function Player:update(dt)
@@ -215,9 +215,8 @@ function Player:decrementAngleBy(angle, dt)
 end
 
 function Player:shoot()
-    self.state = "waiting"
-
     if self:getCurrentItem().q > 0 then
+        self.state = "waiting"
         local d = 1.2 * self.barrel.w
         self.p_system:emit(32)
 
@@ -239,7 +238,8 @@ function Player:shoot()
 
         self:getCurrentItem().q = self:getCurrentItem().q - 1
     else
-        love.event.push('endTurn')
+        sounds.invalid:stop()
+        sounds.invalid:play()
     end
 end
 
