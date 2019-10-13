@@ -133,5 +133,7 @@ function Director:roundReward()
 end
 
 function love.handlers.endTurn()
-    director:nextPlayer(director.current_player)
+    director.timer:after(2, function ()
+        director:nextPlayer(director.current_player)
+    end)
 end
