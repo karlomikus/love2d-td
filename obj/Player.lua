@@ -69,7 +69,7 @@ function Player:new(x, y, opts)
     -- Default weapons
     self.inventory:giveItem(weapons_pool[1], 10)
     self.inventory:giveItem(weapons_pool[2], 1)
-    self.inventory:giveItem(weapons_pool[3], 0)
+    self.inventory:giveItem(weapons_pool[3], 1)
 end
 
 function Player:update(dt)

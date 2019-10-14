@@ -10,6 +10,8 @@ function Map:new()
     self.world = love.physics.newWorld(0, 9.81 * 32, true)
     self.game_objects = {}
     self.map_needs_update = false
+    self.camera_scales = {0.8, 1, 1.5, 2}
+    self.camera_current_scale = 1
 
     -- Camera controls
     self.timer = Timer()
@@ -90,14 +92,14 @@ function Map:update(dt)
     end
 
     if self.input:pressed('zoom_in') then
-        if camera.scale <= 2 then
-            self.timer:tween(0.05, camera, {scale = camera.scale + 0.2}, 'in-out-cubic')
+        if camera.scale <= 1.8 then
+            camera.scale = camera.scale + 0.2
         end
     end
 
     if self.input:pressed('zoom_out') then
-        if camera.scale >= 0.7 then
-            self.timer:tween(0.05, camera, {scale = camera.scale - 0.2}, 'in-out-cubic')
+        if camera.scale >= 1 then
+            camera.scale = camera.scale - 0.2
         end
     end
 
@@ -105,7 +107,6 @@ function Map:update(dt)
 end
 
 function Map:draw()
-
     -- Actual map
     love.graphics.draw(self.map)
 
@@ -124,6 +125,10 @@ function Map:draw()
             game_object:draw(dt)
         end
     end
+
+    love.graphics.setColor(0, 0, 0)
+    love.graphics.rectangle("fill", 0 - gw, gh, gw * 3, gh)
+    love.graphics.setColor(1, 1, 1)
 end
 
 function Map:addGameObject(game_object_type, x, y, opts)
