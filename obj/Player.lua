@@ -70,6 +70,7 @@ function Player:new(x, y, opts)
     self.inventory:giveItem(weapons_pool[1], 10)
     self.inventory:giveItem(weapons_pool[2], 1)
     self.inventory:giveItem(weapons_pool[3], 1)
+    self.inventory:giveItem(weapons_pool[4], 1)
 end
 
 function Player:update(dt)
@@ -220,21 +221,12 @@ function Player:shoot()
         local d = 1.2 * self.barrel.w
         self.p_system:emit(32)
 
-        if self:getCurrentItem().weapon_pool_item.obj == "Rocket" then
-            map:addGameObject(
-                self:getCurrentItem().weapon_pool_item.obj,
-                self.barrel.x + d * math.cos(math.rad(self.barrel.angle)),
-                self.barrel.y + d * math.sin(math.rad(self.barrel.angle)),
-                {rot = self.barrel.angle}
-            )
-        elseif self:getCurrentItem().weapon_pool_item.obj == "DirtBomb" then
-            map:addGameObject(
-                self:getCurrentItem().weapon_pool_item.obj,
-                self.barrel.x + d * math.cos(math.rad(self.barrel.angle)),
-                self.barrel.y + d * math.sin(math.rad(self.barrel.angle)),
-                {rot = self.barrel.angle}
-            )
-        end
+        map:addGameObject(
+            self:getCurrentItem().weapon_pool_item.obj,
+            self.barrel.x + d * math.cos(math.rad(self.barrel.angle)),
+            self.barrel.y + d * math.sin(math.rad(self.barrel.angle)),
+            {rot = self.barrel.angle}
+        )
 
         self:getCurrentItem().q = self:getCurrentItem().q - 1
     else

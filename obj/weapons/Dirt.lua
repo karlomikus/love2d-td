@@ -6,7 +6,7 @@ function Dirt:new(x, y, opts)
     sounds.dirt:stop()
     sounds.dirt:play()
 
-    self.radius_max = 40
+    self.radius_max = 70
     self.radius = 0
     self.dirt_pos = {}
 

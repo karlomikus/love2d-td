@@ -19,5 +19,12 @@ weapons_pool = {
         price = 400,
         stock = 1,
         max_per_player = 1
+    },
+    {
+        name = "Rocket barrage",
+        obj = "Barrage",
+        price = 400,
+        stock = 2,
+        max_per_player = 2
     }
 }
