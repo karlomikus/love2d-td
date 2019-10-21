@@ -67,7 +67,7 @@ function love.load()
     effect.chromasep.angle = math.rad(30)
     effect.chromasep.radius = 1
     effect.scanlines.opacity = 0.2
-    effect.disable("crt", "chromasep", "scanlines")
+    -- effect.disable("crt", "chromasep", "scanlines")
 
     -- Init game objs
     camera = camera()
