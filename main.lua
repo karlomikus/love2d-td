@@ -25,10 +25,6 @@ function love.load()
     recursiveEnumerate('obj', object_files)
     requireFiles(object_files)
 
-    -- Canvases
-    game_canvas = love.graphics.newCanvas()
-    map_canvas = love.graphics.newCanvas()
-
     -- Modify defaults
     love.graphics.setLineStyle("rough")
     love.graphics.setDefaultFilter('nearest', 'nearest')
@@ -67,51 +63,18 @@ function love.load()
     effect.chromasep.angle = math.rad(30)
     effect.chromasep.radius = 1
     effect.scanlines.opacity = 0.2
-    -- effect.disable("crt", "chromasep", "scanlines")
+    effect.disable("crt", "chromasep", "scanlines")
 
-    -- Init game objs
-    camera = camera()
-    -- camera:setBounds(0, 0, gw, gh)
-    map = Map()
-    director = Director()
-    gameUI = GameUI()
-    wp = WeaponManager()
-
-    -- Add players
-    director:addPlayer(100, 0, {color = COLORS.GREEN, name = "Player 1"})
-    director:addPlayer(900, 0, {color = COLORS.RED, name = "Player 2"})
-    director:addPlayer(600, 0, {color = COLORS.BLUE, name = "Player 3"})
-    director:addPlayer(400, 0, {color = COLORS.YELLOW, name = "Player 4"})
-    director:startRound()
+    -- States
+    current_state = MainMenuState()
 end
 
 function love.update(dt)
-    camera:update(dt)
-    map:update(dt)
-    director:update(dt)
-    gameUI:update(dt)
-    wp:update(dt)
+    current_state:update(dt)
 end
 
 function love.draw()
-    love.graphics.setBackgroundColor(COLORS["BG"])
-
-    effect(function()
-        -- Map bg
-        love.graphics.setColor(15/255, 2/255, 43/255)
-        love.graphics.rectangle("fill", 0, gh/2 + 100, gw, gh)
-        love.graphics.setColor(50/255, 18/255, 114/255)
-        love.graphics.rectangle("fill", 0, gh/2 + 100, gw, 5)
-        love.graphics.setColor(1, 1, 1)
-
-        map.rain:draw()
-
-        camera:attach()
-        map:draw()
-        director:draw()
-        camera:detach()
-        gameUI:draw()
-    end)
+    current_state:draw()
 end
 
 function love.keypressed(key)
